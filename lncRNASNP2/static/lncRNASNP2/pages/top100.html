@@ -1,0 +1,61 @@
+<div class="col-lg-7"
+        paging
+    page="currentPage"
+    page-size=30
+    total="records_number"
+    scroll-top="true"
+    hide-if-empty="true"
+    show-prev-next="true"
+    show-first-last="true"
+    text-title-page="Page {page} Hover Over"
+    text-title-first="First hover"
+    text-title-last="Last hover"
+    text-title-next="Next hover"
+    text-title-prev="Prev hover"
+    show-prev-next="true"
+    show-first-last="true"
+         ul-class="pagination"
+    active-class="active"
+disabled-class="disabled"
+          paging-action="update_page('test',page,page-size,total)"
+
+   >
+</div>
+<table class="table table-bordered table-condensed table-hover table-striped tablesorter tablesorter-bootstrap">
+    <thead>
+    <tr>
+        <th>SNP ID</th>
+        <th>lncRNA</th>
+        <th>Chromosome</th>
+        <th>Exon start</th>
+        <th>Exon End</th>
+        <th>Length</th>
+        <th>Interval</th>
+        <th>d_max</th>
+        <th>p-value</th>
+        <th>Interval</th>
+        <th>r_min</th>
+        <th>p-value</th>
+
+    </tr>
+    </thead>
+    <tbody>
+
+
+    <tr ng-repeat="snp in snp_effect_list">
+        <td class="center">{$ snp.snp $}</td>
+        <td class="center">{$ snp.lncRNA $}</td>
+        <td class="center">{$ snp.chromosome $}</td>
+        <td class="center">{$ snp.start $}</td>
+        <td class="center">{$ snp.end $}</td>
+        <td class="center">{$ snp.length $}</td>
+        <td>{$ snp.intval1 $}</td>
+        <td>{$ snp.d_max1 $}</td>
+        <td>{$ snp.p_value1 $}</td>
+        <td>{$ snp.interval2 $}</td>
+        <td>{$ snp.r_min $}</td>
+        <td>{$ snp.p_value2 $}</td>
+    </tr>
+    </tbody>
+
+</table>

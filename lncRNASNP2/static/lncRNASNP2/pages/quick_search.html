@@ -1,0 +1,185 @@
+<div class="row">
+    <div class="col-xs-6 col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <strong>
+                    lncRNA & SNP & miRNA
+                </strong>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">SNP</label>
+                    <div class="col-sm-2">
+                        <input type="txt" value="rs403689"  placeholder="rs403689" class="form-control" id="query_snp">
+                    </div>
+                    <div class="col-sm-1">
+                        <button class="btn btn-primary"  ng-click="filter_snp()">search</button>
+                    </div>
+                    <span class="help-block">Input a SNP ID such as `rs403689`</span>
+                </div>
+                <br/>
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">lncRNA</label>
+                    <div class="col-sm-2">
+                        <input type="txt" value="NONHSAT154826.1" class="form-control" placeholder="NONHSAT154826.1" id="query_lncrna">
+                    </div>
+                    <div class="col-sm-1">
+                        <button class="btn btn-primary" ng-click="filter_lncrna()">search</button>
+                    </div>
+                    <span class="help-block">Input a lncRNA ID such as `NONHSAT154826.1` or 'ENST00000515242'</span>
+                </div>
+                <br/>
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">miRNA</label>
+                    <div class="col-sm-2">
+                        <input type="txt" class="form-control" value="hsa-miR-522-3p" placeholder="hsa-miR-522-3p" id="query_mirna">
+                    </div>
+                    <div class="col-sm-1">
+                        <button class="btn btn-primary" ng-click="filter_mirna()">search</button>
+                    </div>
+                    <span class="help-block">Input a miRNA ID such as `hsa-miR-522-3p`</span>
+                </div>
+            </div>
+        </div>
+        <div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <strong>TCGA Cancer Mutation</strong>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">TCGA Cancer</label>
+                            <div class="col-sm-3 col-lg-4">
+                                <select class="form-control" id="query_cancer">
+                                    <option>ACC</option>
+                                    <option>BLCA</option>
+                                    <option>BRCA</option>
+                                    <option>CESC</option>
+                                    <option>CHOL</option>
+                                    <option>COAD</option>
+                                    <option>DLBC</option>
+                                    <option>ESCA</option>
+                                    <option>GBM</option>
+                                    <option>HNSC</option>
+                                    <option>LICH</option>
+                                    <option>KIRC</option>
+                                    <option>KIRP</option>
+                                    <option>LAML</option>
+                                    <option>LGG</option>
+                                    <option>LIHC</option>
+                                    <option>LUAD</option>
+                                    <option>LUSC</option>
+                                    <option>MESO</option>
+                                    <option>OV</option>
+                                    <option>PAAD</option>
+                                    <option>PCPG</option>
+                                    <option>PRAD</option>
+                                    <option>READ</option>
+                                    <option>SARC</option>
+                                    <option>SKCM</option>
+                                    <option>STAD</option>
+                                    <option>TGCT</option>
+                                    <option>THCA</option>
+                                    <option>THYM</option>
+                                    <option>UCEC</option>
+                                    <option>UCS</option>
+                                    <option>UVM</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-1">
+                                <button class="btn btn-primary" ng-click="filter_cancer()">search</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <strong>Cosmic Mutation</strong>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">CosmicID</label>
+                            <div class="col-sm-4 col-lg-5">
+                                <input type="text" class="form-control" placeholder="COSN17902850" value="COSN17902850" id="query_cosmic_id">
+                            </div>
+                            <div class="col-sm-1">
+                                <button class="btn btn-primary" ng-click="filter_cosmic()">search</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <strong>GWAS</strong>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">TagSNP</label>
+                    <div class="col-sm-3">
+                        <select class="form-control col-sm-3" id="query_tagsnp">
+                            <option ng-repeat="item in tagSNP_list">{$ item.tagSNP $}</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-1">
+                        <button class="btn btn-primary" ng-click="filter_tagsnp()">search</button>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div class="form-group">
+                    <label class="col-sm-1 control-label" >LD Region</label>
+                    <div class="col-sm-3">
+                        <input type="txt" class="form-control" placeholder="chr9:22017550-22054356" value="chr9:22017550-22054356" id="query_position">
+                    </div>
+                    <div class="col-sm-1">
+                        <button class="btn btn-primary" ng-click="ld_region()">search</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <strong>
+                    Batch search
+                </strong>
+            </div>
+            <div class="panel panel-body">
+                <div class="form-group">
+                    <div class="col-sm-5">
+                        <textarea class="form-control"  rows="8" id="search_content"></textarea>
+                        <button class="btn btn-info col-sm-2" type="submit" ng-click="batch_search()">Search</button>
+                        <button class="btn btn-danger" type="reset" ng-click="cancel_click()">Cancel</button>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="radio">
+                        <label class="radio-inline" >
+                            <input id="snp" type="radio" name="optionsRadios" value="option1" checked>SNP
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label class="radio-inline">
+                            <input id="mirna" type="radio" name="optionsRadios" value="option2">miRNA
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label class="radio-inline">
+                            <input id="lncrna" type="radio" name="optionsRadios" value="option3">lncRNA
+                        </label>
+                    </div>
+                </div>
+                <span class="help-block col-sm-5">One ID for each line</span>
+            </div>
+        </div>
+    </div>
+</div>

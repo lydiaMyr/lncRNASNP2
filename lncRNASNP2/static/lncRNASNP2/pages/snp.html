@@ -1,0 +1,169 @@
+<div class="well"><p>SNPs in human lncRNA transcripts</p>
+    <p>
+        In total, we identified 10,205,295 SNPs in 141,353 human lncRNA transcripts of 90,062 lncRNA genes. Here, we developed an advanced search helping users to prioritize the functional SNPs. Users can input chromosome IDs or chromosome region. You can also limit SNP minor allele frequency (MAF) and select whether impact miRNA:lncRNA or in GWAS LD regions.
+    </p>
+    <form method="get" id="snp-filter-form" class="form form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-lg-1">Position</label>
+            <div class="col-lg-3">
+                <input type="text" class="form-control" id="gwas_position" ng-model="position_query">
+            </div>
+            <span class="help-block">Input a user-defined region such as `chr9:22017550-22054356` or `chr17`</span>
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label col-lg-1">GMAF</label>
+            <div class="col-lg-2">
+                <select class="form-control" id="gmaf">
+                    <option>ALL</option>
+                    <option>>0.05</option>
+                    <option>>0.01</option>
+                </select>
+            </div>
+            <div class="col-lg-9">
+                <label class="control-label checkbox-inline">
+                    <input type="checkbox" id="ld">
+                    <strong id="gwas_ld">in GWAS LD regions</strong>
+                </label>
+                <label class="control-label checkbox-inline" >
+                    <input type="checkbox"  id="target" ng-click="miRNA_effect = !miRNA_effect">
+                    <strong id="mirna_lncrna"><span ng-click="miRNA_effect = !miRNA_effect" class="cursor-hand">impact miRNA:lncRNA<span></span></strong>
+                </label>
+                <label class="control-label checkbox-inline">
+                    <input type="checkbox" id="effect">
+                    <strong id="structure">impact lncRNA structure</strong>
+                </label>
+            </div>
+            <div ng-show="miRNA_effect">
+                <label class="control-label">
+                    <input type="checkbox" id="exp">
+                    <strong>miRNA:lncRNA interaction experimentally supported</strong>
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-offset-1 col-lg-3">
+                <button class="btn btn-success" type="submit" ng-click="search_click(position_query,gmaf)">Search</button>
+                <button class="btn btn-danger" type="reset" ng-click="cancel_click()">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="col-lg-7"
+     paging
+     page="currentPage"
+     page-size=30
+     total="records_number"
+     scroll-top="true"
+     hide-if-empty="true"
+     show-prev-next="true"
+     show-first-last="true"
+     text-title-page="Page {page} Hover Over"
+     text-title-first="First hover"
+     text-title-last="Last hover"
+     text-title-next="Next hover"
+     text-title-prev="Prev hover"
+     show-prev-next="true"
+     show-first-last="true"
+     ul-class="pagination"
+     active-class="active"
+     disabled-class="disabled"
+     paging-action="update_page('test',page,page-size,total)"
+
+>
+</div>
+<div class="alert alert-danger alert-dismissible" role="alert" ng-show="error">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <strong>Sorry, your query item is not exist</strong>
+</div>
+<table ng-show="lncrna_snp_list.length" id="sortTable"  data-striped="true" class="table table-responsive table-bordered table-striped table-hover table-condensed tablesorter tablesorter-bootstrap" role = "grid" style="text-align: center" ts-wrapper >
+    <thead>
+    <tr>
+        <th ts-criteria="snp" ts-default>SNP ID</th>
+        <th ts-criteria="chromosome">Chromosome</th>
+        <th ts-criteria="pos|parseInt">Position</th>
+        <th ts-criteria="ref_base">Ref</th>
+        <th ts-criteria="r_fre|parseFloat">Ref_fre
+            <span class="glyphicon glyphicon-question-sign" data-placement="top"  data-container="body" data-toggle="popover" style="color: dodgerblue" data-trigger="hover" data-content="frequence of reference allele"></span>
+        </th>
+        <th>Alt</th>
+        <th ts-criteria="a_fre|parseFloat">Alt_fre
+            <span class="glyphicon glyphicon-question-sign" data-placement="top"  data-container="body" data-toggle="popover" style="color: dodgerblue" data-trigger="hover" data-content="frequence of alternative allele"></span>
+        </th>
+        <th ts-criteria="lncrna">lncRNA
+            <span class="glyphicon glyphicon-question-sign" data-placement="top"  data-container="body" data-toggle="popover" style="color: dodgerblue" data-trigger="hover" data-content="lncRNAs with SNP"></span>
+        </th>
+        <th>LD SNP
+            <span class="glyphicon glyphicon-question-sign" data-placement="top"  data-container="body" data-toggle="popover" style="color: dodgerblue" data-trigger="hover" data-content="whether SNP in GWAS LD region or not?"></span>
+        </th>
+        <th>miRNA:lncRNA
+            <span class="glyphicon glyphicon-question-sign" data-placement="top"  data-container="body" data-toggle="popover" style="color: dodgerblue" data-trigger="hover" data-content="whether SNP impact miRNA:lncRNA interaction or not? (green tick flag refers experimentally validated results.)"></span>
+        </th>
+        <th>Effect
+            <span class="glyphicon glyphicon-question-sign" data-placement="top"  data-container="body" data-toggle="popover" style="color: dodgerblue" data-trigger="hover" data-content="The effect of SNP in lncRNA structure is calculated by RNAsnp.RNAsnp  is  an  efficient  method  to  predict
+the effect of SNPs on local RNA secondary structure
+based on the RNA folding algorithms implemented
+in  the  Vienna  RNA  package.  The  SNP  effects  are
+quantified  in  terms  of  empirical
+P-values"></span>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+
+
+    <tr ng-repeat="snp in lncrna_snp_list" ts-repeat>
+        <td ng-init="snp" class="center">
+            <a href="#!/snp_info?snp={$ snp.snp $}" target="_self" ng-click="snp_detail()">
+                {$ snp.snp $}
+            </a>
+        </td>
+        <td class="center">{$ snp.chromosome $}</td>
+        <td>{$ snp.pos $}</td>
+        <td>{$ snp.ref_base $}</td>
+        <td>{$ snp.r_fre $}</td>
+        <td>{$ snp.alt_base $}</td>
+        <td>{$ snp.a_fre $}</td>
+        <td ng-init="lncrna">
+            <a href="#!/lncrna_info?lncrna={$ snp.lnc $}">
+                {$ snp.lnc $}
+            </a>
+        </td>
+        <td>
+            <span class="glyphicon glyphicon-ok" style="color: deepskyblue" ng-if="snp.tagSNP"></span>
+            <span class="glyphicon glyphicon-remove" style="color: red" ng-if="!snp.tagSNP"></span>
+        </td>
+        <td>
+            <span class="glyphicon glyphicon-ok" style="color: deepskyblue" ng-if="snp.target"></span>
+            <span class="glyphicon glyphicon-remove" style="color: red" ng-if="!snp.target"></span>
+        </td>
+        <td>
+            <span class="glyphicon glyphicon-ok" style="color: deepskyblue" ng-if="snp.effect"></span>
+            <span class="glyphicon glyphicon-remove" style="color: red" ng-if="!snp.effect"></span>
+        </td>
+    </tr>
+    </tbody>
+
+</table>
+<div paging
+     page="currentPage"
+     page-size=30
+     total="records_number"
+     scroll-top="true"
+     hide-if-empty="true"
+     show-prev-next="true"
+     show-first-last="true"
+     text-title-page="Page {page} Hover Over"
+     text-title-first="First hover"
+     text-title-last="Last hover"
+     text-title-next="Next hover"
+     text-title-prev="Prev hover"
+     show-prev-next="true"
+     show-first-last="true"
+     ul-class="pagination"
+     active-class="active"
+     disabled-class="disabled"
+     paging-action="update_page('test',page,page-size,total)"
+>
+</div>

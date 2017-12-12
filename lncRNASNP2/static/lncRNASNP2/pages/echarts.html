@@ -1,0 +1,35 @@
+<div ng-show="lncrna_list.length">
+    <div class="well">Your query item is <span style="font-size: large" class="badge alert-info">{$ search_lncrna $}</span>:</div>
+    <div class="well">
+        <table width="100%" border="0" cellpadding="0" style="table-layout:fixed" ng-show="lnc">
+            <tbody>
+            <tr ng-repeat="lncrna in lncrna_list" style="display: inline;">
+                <td><a href="#!/lncrna_info?lncrna={$ lncrna.lncrna $}"><span style="margin-right: 20px">{$ lncrna.lncrna $}</span></a></td>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table table-bordered"  ng-show="alias">
+            <thead>
+            <tr>
+                <td>lncRNA</td>
+                <td>lncRNA alias</td>
+                <td>Gene</td>
+                <td>Gene alias</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="lncrna in lncrna_list">
+                <td><a href="#!/lncrna_info?lncrna={$ lncrna.transcript $}">{$ lncrna.transcript $}</a></td>
+                <td>{$ lncrna.trans_alias $}</td>
+                <td>{$ lncrna.gene $}</td>
+                <td>{$ lncrna.gene_alias $}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div ng-show="error">
+    <div class="alert alert-info" role="alert">
+        Sorry,your query item is not exist in our database
+    </div>
+</div>

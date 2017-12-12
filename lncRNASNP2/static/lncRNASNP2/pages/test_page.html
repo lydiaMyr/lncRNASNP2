@@ -1,0 +1,235 @@
+<div  style="width: auto; overflow-x: scroll">
+    <svg width="2800" height="200px">
+        <text x="10" y="10">ENSGXXXX</text>
+        <rect x="10" y="30" height="10" width="2000" fill="skyblue"></rect>
+        <text x="10" y="60">MRE:hsa-mir-155-5p</text>
+        <rect x="10" y="70" height="10" width="2000" fill="#DCF7A1"></rect>
+        <rect x="200" y="70" height="10" width="2" fill="red"></rect>
+        <rect x="300" y="70" height="10" width="2" fill="red"></rect>
+        <rect x="400" y="70" height="10" width="2" fill="red"></rect>
+        <rect x="600" y="70" height="10" width="2" fill="red"></rect>
+        <rect x="900" y="70" height="10" width="2" fill="red"></rect>
+    </svg>
+</div>
+<div id="wrapper"  role="navigation" >
+        <div class="container">
+                <div class="col-xs-6" style="background-color:#EEEED1;border:1px solid #9AC0CD;with:200px;height:620px;over-flow:auto;" >
+                    <h3 style="color:black"><b>Search SEGs from TCGA dataset</b></h3>
+                    <form class="form-inline" method="post" action="http://bioinfo.life.hust.edu.cn/SEGreg/searchData" target="_blank" id="form1">
+                        <table>
+                            <tr><td width="280px" valign="top" ><span><h3>&nbsp&nbspData source: </h3></span></td></tr>
+                            <tr><td><p><h3><div>&nbsp&nbsp<input id="TCGA" type="text" name="dataSource_TCGA" value="TCGA"/></div></h3></p></td></tr>
+                            <tr><td style="width:280px"><span><h3>&nbsp&nbspTumor type:</h3> </span></td></tr>
+                            <tr style="margin-left:12px"><td><p><h4>&nbsp&nbsp<select id="search_cancer" class='select' name='cancer'>
+                                <option value ="">--select--</option>
+                                <option value ="ACC">ACC (Adrenocortical carcinoma)</option>
+                                <option value ="BLCA">BLCA (Bladder urothelial carcinoma)</option>
+                                <option value ="BRCA">BRCA (Breast invasive carcinoma)</option>
+                                <option value ="CESC">CESC (Cervical and endocervical cancers)</option>
+                                <option value ="CHOL">CHOL (Cholangiocarcinoma)</option>
+                                <option value ="COAD">COAD (Colon adenocarcinoma)</option>
+                                <option value ="DLBC">DLBC (Lymphoid Neoplasm Diffuse Large B-cell Lymphoma)</option>
+                                <option value ="ESCA">ESCA (Esophageal carcinoma)</option>
+                                <option value ="GBM">GBM (Glioblastoma multiforme)</option>
+                                <option value ="HNSC">HNSC (Head and Neck squamous cell carcinoma)</option>
+                                <option value ="KICH">KICH (Kidney Chromophobe)</option>
+                                <option value ="KIRC">KIRC (Kidney renal clear cell carcinoma)</option>
+                                <option value ="KIRP">KIRP (Kidney renal papillary cell carcinoma)</option>
+                                <option value ="LAML">LAML (Acute Myeloid Leukemia)</option>
+                                <option value ="LGG">LGG (Brain Lower Grade Glioma)</option>
+                                <option value ="LIHC">LIHC (Liver hepatocellular carcinoma)</option>
+                                <option value ="LUAD">LUAD (Lung adenocarcinoma)</option>
+                                <option value ="LUSC">LUSC (Lung squamous cell carcinoma)</option>
+                                <option value ="MESO">MESO (Mesothelioma)</option>
+                                <option value ="OV">OV (Ovarian serous cystadenocarcinoma)</option>
+                                <option value ="PAAD">PAAD (Pancreatic adenocarcinoma)</option>
+                                <option value ="PCPG">PCPG (Pheochromocytoma and Paraganglioma)</option>
+                                <option value ="PRAD">PRAD (Prostate adenocarcinoma)</option>
+                                <option value ="READ">READ (Rectum adenocarcinoma)</option>
+                                <option value ="SARC">SARC (Sarcoma Soft tissue)</option>
+                                <option value ="SKCM">SKCM (Skin Cutaneous Melanoma)</option>
+                                <option value ="STAD">STAD (Stomach adenocarcinoma)</option>
+                                <option value ="STES">STES (Stomach and Esophageal carcinoma)</option>
+                                <option value ="TGCT">TGCT (Testicular Germ Cell Tumors)</option>
+                                <option value ="THCA">THCA (Thyroid carcinoma)</option>
+                                <option value ="THYM">THYM (Thymoma)</option>
+                                <option value ="UCEC">UCEC (Uterine Corpus Endometrial Carcinoma)</option>
+                                <option value ="UCS">UCS (Uterine Carcinosarcoma)</option>
+                                <option value ="UVM">UVM (Uveal Melanoma)</option>
+                            </select></h4></p>
+                            </td></tr>
+                            <tr><td style="width:280px"><span><h3>&nbsp&nbspTissue type:</h3> </span></td></tr>
+                            <tr style="margin-left:8px"><td><p><h3>&nbsp&nbsp<select id="search_tissue" class='select' name='TCGA_tissue'>
+                                <option value ="">--select--</option>
+                                <option value ="Adrenal gland">Adrenal gland</option>
+                                <option value ="Bile duct">Bile duct</option>
+                                <option value ="Bladder">Bladder</option>
+                                <option value ="Bone marrow">Bone marrow</option>
+                                <option value ="Brain">Brain</option>
+                                <option value ="Breast">Breast</option>
+                                <option value ="Cervix">Cervix</option>
+                                <option value ="Colon">Colon</option>
+                                <option value ="Esophagus">Esophagus</option>
+                                <option value ="Eye">Eye</option>
+                                <option value ="Head and neck">Head and neck</option>
+                                <option value ="Kidney">Kidney</option>
+                                <option value ="Liver">Liver</option>
+                                <option value ="Lung">Lung</option>
+                                <option value ="Lymph node">Lymph node</option>
+                                <option value ="Ovary">Ovary</option>
+                                <option value ="Pancreas">Pancreas</option>
+                                <option value ="Pleura">Pleura</option>
+                                <option value ="Prostate">Prostate</option>
+                                <option value ="Rectum">Rectum</option>
+                                <option value ="Skin">Skin</option>
+                                <option value ="Soft tissue">Soft tissue</option>
+                                <option value ="Stomach">Stomach</option>
+                                <option value ="Stomach and Esophagus">Stomach and Esophagus</option>
+                                <option value ="Testis">Testis</option>
+                                <option value ="Thymus">Thymus</option>
+                                <option value ="Thyroid">Thyroid</option>
+                                <option value ="Uterus">Uterus</option>
+                            </select></h3></p>
+                            </td>
+                            </tr></table>
+                        <table>
+                            <tr><td width="280px" valign="top"><span><h3>&nbsp&nbspGene: </h3></span></td></tr>
+                            <tr><td><p><h3><div id="the-basics">&nbsp&nbsp<input style="margin-left: " id="search_gene" data-provide="typeahead" data-source=["A1BG","BHMT","CES1"]  type="text" name="gene" /></div></h3></p></td></tr>
+                        </table><br>
+                        <p><h3 align="right"><input name="submit" type="submit" id="submit" value="submit">&nbsp&nbsp&nbsp</h3></p>
+                    </form>
+                </div>
+
+                <div class="col-xs-6" style="background-color:#E5E5E5;border:1px solid #9AC0CD;with:200px;height:620px" >
+                    <h3 style="color:black;text-align:center"><b>Search SEGs from BodyMap/GTEx/CCLE datasets</b></h3>
+                    <form class="form-inline" method="post" action="http://bioinfo.life.hust.edu.cn/SEGreg/searchData" target="_blank"  id="form2">
+                        <table><tr>
+                            <td width="280px" valign="top" ><span><h3>&nbsp&nbsp&nbsp&nbspData source: </h3></span></td></tr>
+                            <tr><td><p><h3>&nbsp&nbsp&nbsp&nbsp<select id="datasource" class="select" name="dataSource">
+                                {#                    <option value ="">--select--</option>#}
+                                <option value ="BodyMap" selected="selected">BodyMap</option>
+                                <option value ="GTEx">GTEx</option>
+                                <option value ="CCLE">CCLE</option>
+                            </select></h3></p></td>
+                            </tr></table>
+
+                        <table><tr>
+                            <td width="280px" valign="top"><span><h3>&nbsp&nbsp&nbsp&nbspTissue type: </h3></span></td></tr>
+                            <tr><td><p><h3>&nbsp&nbsp&nbsp&nbsp<select id="tissue" class="select" name="cellLine">
+                                <!-- <option value ="">--select--</option> -->
+                                <option value ="Adipose tissue">Adipose tissue</option>
+                                <option value ="Adrenal gland">Adrenal gland</option>
+                                <option value ="Appendix">Appendix</option>
+                                <option value ="Autonomic ganglia">Autonomic ganglia</option>
+                                <option value ="Biliary tract">Biliary tract</option>
+                                <option value ="Bladder">Bladder</option>
+                                <option value ="Blood">Blood</option>
+                                <option value ="Blood vessel">Blood vessel</option>
+                                <option value ="Bone">Bone</option>
+                                <option value ="Bone marrow">Bone marrow</option>
+                                <option value ="Brain">Brain</option>
+                                <option value ="Breast">Breast</option>
+                                <option value ="Central nervous system">Central nervous system</option>
+                                <option value ="Cerebral cortex">Cerebral cortex</option>
+                                <option value ="Cervix uteri">Cervix uteri</option>
+                                <option value ="Colon">Colon</option>
+                                <option value ="Duodenum">Duodenum</option>
+                                <option value ="Endometrium">Endometrium</option>
+                                <option value ="Esophagus">Esophagus</option>
+                                <option value ="Fallopian tube">Fallopian tube</option>
+                                <option value ="Gall bladder">Gall bladder</option>
+                                <option value ="Haematopoietic and lymphoid tissue">Haematopoietic and lymphoid tissue</option>
+                                <option value ="Heart">Heart</option>
+                                <option value ="Kidney">Kidney</option>
+                                <option value ="Large intestine">Large intestine</option>
+                                <option value ="Leukocyte">Leukocyte</option>
+                                <option value ="Liver">Liver</option>
+                                <option value ="Lung">Lung</option>
+                                <option value ="Lymph node">Lymph node</option>
+                                <option value ="Muscle">Muscle</option>
+                                <option value ="Nerve">Nerve</option>
+                                <option value ="Oesophagus">Oesophagus</option>
+                                <option value ="Ovary">Ovary</option>
+                                <option value ="Pancreas">Pancreas</option>
+                                <option value ="Pituitary">Pituitary</option>
+                                <option value ="Placenta">Placenta</option>
+                                <option value ="Pleura">Pleura</option>
+                                <option value ="Prostate">Prostate</option>
+                                <option value ="Rectum">Rectum</option>
+                                <option value ="Salivary gland">Salivary gland</option>
+                                <option value ="Skeletal muscle">Skeletal muscle</option>
+                                <option value ="Skin">Skin</option>
+                                <option value ="Small intestine">Small intestine</option>
+                                <option value ="Smooth muscle">Smooth muscle</option>
+                                <option value ="Soft tissue">Soft tissue</option>
+                                <option value ="Spleen">Spleen</option>
+                                <option value ="Stomach">Stomach</option>
+                                <option value ="Testis">Testis</option>
+                                <option value ="Thyroid">Thyroid</option>
+                                <option value ="Tonsil">Tonsil</option>
+                                <option value ="Upper aerodigestive tract">Upper aerodigestive tract</option>
+                                <option value ="Urinary tract">Urinary tract</option>
+                                <option value ="Uterus">Uterus</option>
+                                <option value ="Vagina">Vagina</option>
+                            </select></h3></p></td></tr></table>
+                        <table>
+                            <tr><td width="280px" valign="top"><span><h3>&nbsp&nbsp&nbsp&nbspGene: </h3></span></td></tr>
+                            <tr><td><p><h3><div id="the-basics">&nbsp&nbsp&nbsp&nbsp<input id="search_gene" type="text" name="geneFrom3db"  data-provide="typeahead" data-source=["A1BG","BHMT","CES1"] /></div></h3></p></td></tr>
+                        </table>
+                        <br/><br/><br/><br/><br/>
+                        <p><h3 align="right"><input name="submit" type="submit" id="submit" value="submit">&nbsp&nbsp&nbsp</h3></p></form>
+
+                </div>
+
+
+                <div class="col-xs-6" style="background-color:#FFE4E1;border:1px solid #9AC0CD;witdh:200px;height:620px" >
+                    <h3 style="color:black"><b>Search by miRNA</b></h3>
+                    <form class="form-inline" method="post" action="http://bioinfo.life.hust.edu.cn/SEGreg/miRNAsearch" target="_blank"  id="form3">
+                        <table><tr>
+                            <td width="280px" valign="top" ><span><h3>&nbsp&nbsp&nbsp&nbspData source: </h3></span></td></tr>
+                            <tr><td><p><h3>&nbsp&nbsp&nbsp&nbsp<select id="tissue1" class="select" name="datafrom1">
+                                {#                    <option value ="">--select--</option>#}
+                                <option value ="TCGA" selected="selected">TCGA</option>
+                                <option value ="BodyMap">BodyMap</option>
+                                <option value ="GTEx">GTEx</option>
+                                <option value ="CCLE">CCLE</option>
+                            </select></h3></p></td>
+                            </tr></table>
+
+                        <table><tr>
+                            <td width="280px" valign="top" ><span><h3>&nbsp&nbsp&nbsp&nbspmiRNA: </h3></span></td></tr>
+                            <tr><td><p><h3>&nbsp&nbsp&nbsp&nbsp<select id="tissue2" class="select" name="miRNA">
+                                <option value ="">--select--</option>
+                                {{ input_miRNA|safe }}
+{#                                <option value ="hsa-miR-10b-5p">hsa-miR-10b-5p</option>#}
+                            </select></h3></p></td></tr></table>
+                        <br/><br/><br/><br/><br/><br/>
+                        <p><h3 align="right"><input name="submit" type="submit" id="submit" value="submit">&nbsp&nbsp&nbsp</h3></p></form>
+
+                </div>
+
+                <div class="col-xs-6" style="background-color:#FFEBCD;border:1px solid #9AC0CD;with:200px;height:620px" >
+                    <h3 style="color:black;text-align:left"><b>Search by TF</b></h3>
+                    <form class="form-inline" method="post" action="http://bioinfo.life.hust.edu.cn/SEGreg/TFsearch" target="_blank"  id="form4">
+                        <table><tr>
+                            <td width="280px" valign="top" ><span><h3>&nbsp&nbsp&nbsp&nbspData source: </h3></span></td></tr>
+                            <tr><td><p><h3>&nbsp&nbsp&nbsp&nbsp<select id="tissue3" class="select" name="datafrom2">
+                                {#                    <option value ="">--select--</option>#}
+                                <option value ="TCGA" selected="selected">TCGA</option>
+                                <option value ="BodyMap">BodyMap</option>
+                                <option value ="GTEx">GTEx</option>
+                                <option value ="CCLE">CCLE</option>
+                            </select></h3></p></td>
+                            </tr></table>
+
+                        <table><tr>
+                            <td width="280px" valign="top" ><span><h3>&nbsp&nbsp&nbsp&nbspTF: </h3></span></td></tr>
+                            <tr><td><p><h3>&nbsp&nbsp&nbsp&nbsp<select id="tissue4" class="select" name="TF">
+                                <option value ="">--select--</option>
+                                {{ input_TF|safe }}
+                            </select></h3></p></td></tr></table>
+                        <br/><br/><br/><br/><br/><br/>
+                        <p><h3 align="right"><input name="submit" type="submit" id="submit" value="submit">&nbsp&nbsp&nbsp</h3></p></form>
+
+                </div>
+    </div></div>

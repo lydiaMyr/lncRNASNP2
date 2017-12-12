@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="5ab4b587-296e-4895-8289-813d0c9e0c81" name="lncRNASNP2" url="http://211.67.31.242">
+        <fileTransfer host="211.67.31.242" port="22" rootFolder="/home/miaoyr/" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

@@ -1,0 +1,36 @@
+<div class="panel panel-default" >
+    <div class="panel-heading" style="background-color: #3F96C3">
+        <span style="color: white">hsa-{$ mirna $}:{$ lncrna $} binding information</span>
+    </div>
+     <div class="panel-body">
+        <div class="col-lg-6">
+            <table class="table table-bordered" style="height: 180px">
+                <tr class="success">
+                    <td style="text-align: center">Pita start</td>
+                    <td style="text-align: center">{$ target.p_start $}</td>
+                    <td style="text-align: center">Pita end</td>
+                    <td style="text-align: center">{$ target.p_end $}</td>
+                </tr>
+                <tr class="info">
+                    <td style="text-align: center">MiRanda start</td>
+                    <td style="text-align: center">{$ target.m_start $}</td>
+                    <td style="text-align: center">MiRanda end</td>
+                    <td style="text-align: center">{$ target.m_end $}</td>
+                </tr>
+                <tr class="warning">
+                     <td style="text-align: center">TargetScan start</td>
+                    <td style="text-align: center">{$ target.t_start $}</td>
+                    <td style="text-align: center">TargetScan end</td>
+                    <td style="text-align: center">{$ target.t_end $}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="well col-lg-6" style="background-color: #C6E2FF">
+            Score:{$ target.score $}<strong>  Energy:</strong>{$ target.energy $}kCal/mol  <strong>Strand:</strong>{$ target.strand $}
+            <br>{$ target.info $}
+            <br>
+            <br>
+            <pre>{$ target.query $}<br>{$ target.detail $}<br>{$ target.ref $} </pre>
+        </div>
+    </div>
+</div>

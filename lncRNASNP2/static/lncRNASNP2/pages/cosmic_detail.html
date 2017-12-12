@@ -1,0 +1,290 @@
+<div ng-show="error">
+    <div class="alert alert-info" role="alert">
+        Sorry,your query item is not exist in our database
+    </div>
+</div>
+<div ng-hide="error">
+    <div ng-show="query_cnv">
+        <ul class="nav nav-tabs">
+            <li id="one" ng-click="show_one('one')" ng-show="cnv.mut_info" style=" background-color:  #EBEBEB;margin-right: 3px" class="active"><a data-toggle="tab" style="font-size: large">CosmicNCV Detail</a></li>
+            <li id="two" ng-click="show_one('two')" class="class_two" ng-show="cnv_lnc.length" style=" background-color:  #EBEBEB;margin-right: 3px"><a data-toggle="tab" style="font-size: large">CosmicNCV in lncRNAs</a></li>
+            <li id="four" ng-click="show_one('four')" ng-show="cnv.gain" style="background-color:  	#EBEBEB;margin-right: 3px"><a data-toggle="tab" style="font-size: large">miRNA target gains</a></li>
+            <li id="five" ng-click="show_one('five')" ng-show="cnv.loss" style="background-color:  	#EBEBEB;margin-right: 3px"><a data-toggle="tab" style="font-size: large">miRNA target losses</a></li>
+
+        </ul>
+    </div>
+
+    <div ng-show="lnc">
+        <ul class="nav nav-tabs">
+            <li id="one" ng-click="show_one('one')" ng-show="query_lnc" class="active" style=" background-color:  #EBEBEB;margin-right: 3px"><a data-toggle="tab" style="font-size: large">lncRNA detail</a></li>
+            <li id="two" ng-click="show_one('two')" class="class_two" ng-show="cnv_lnc.length" style=" background-color:  #EBEBEB;margin-right: 3px"><a data-toggle="tab" style="font-size: large">CosmicNCVs in lncRNA</a></li>
+        </ul>
+    </div>
+
+    <div ng-show="query_cnv">
+        <div class="panel panel-info" ng-show="one">
+            <div class="panel-heading" style="background-color: #3F96C3">
+                <strong style="color: white">Basic information of mutation:{$query_cnv$}
+                </strong>
+            </div>
+            <div class="panel-body">
+                <dl class="dl-horizontal">
+                    <dt>CNV ID</dt>
+                    <dd>
+                        <a href="http://cancer.sanger.ac.uk/cosmic/ncv/overview?id={$ query_cnv.substring(4,15) $}" target="_blank" class="col">{$query_cnv$}</a>
+                    </dd>
+                    <dt>Position</dt>
+                    <dd >{$ cnv.mut_info $}</dd>
+                    <dt>Allele Info (Ref/Alt)</dt>
+                    <dd>{$ cnv.ref_base $}/{$ cnv.alt_base $}</dd>
+                    <dt>Located in lncRNA</dt>
+                    <dd>
+                        <span class="glyphicon glyphicon-ok" style="color: deepskyblue"></span>
+                    </dd>
+                    <dt>Score<span class="glyphicon glyphicon-question-sign" data-placement="right"  data-container="body" data-toggle="popover" style="color: dodgerblue" data-trigger="hover" data-content="scores > 0.7 are classified as 'Pathogenic'. Mutations are classed as 'Neutral' if the score < 0.5"></span>
+</dt>
+                    <dd>{$ cnv.noncoding_score $}</dd>
+                    <dt>Impact lncRNA:miRNA</dt>
+                    <dd>
+                        <span class="glyphicon glyphicon-ok" style="color: deepskyblue" ng-if="cnv.target"></span>
+                        <span class="glyphicon glyphicon-remove" style="color: red" ng-if="!cnv.target"></span>
+                    </dd>
+                    <dt>Pubmed</dt>
+                    <dd>
+                        <a href="https://www.ncbi.nlm.nih.gov/pubmed/{$ cnv.pubmed_id $}" target="_blank">{$ cnv.pubmed_id $}</a>
+                    </dd>
+                </dl>
+
+            </div>
+        </div>
+
+        <div ng-show="two">
+            <div class="panel panel-success" ng-show="cnv_lnc.length">
+                <div class="panel-heading" style="background-color: #3F96C3">
+                    <strong style="color: white">{$ query_cnv $} in lncRNAs
+                    </strong>
+                </div>
+                <div class="panel-body">
+                    <div class="pre-scrollable">
+                        <table id="lncrna-list-table" class="table table-bordered table-striped table-hover  table-condensed tablesorter tablesorter-bootstrap" >
+                            <thead>
+                            <th>lncRNA ID</th>
+                            <th>NCV ID</th>
+                            <th style="text-align: center">Chromosome</th>
+                            <th style="text-align: center">Exon start</th>
+                            <th style="text-align: center">Exon end</th>
+                            <th style="text-align: center" ng-show="effect">Impact Groups
+                                <span class="glyphicon glyphicon-question-sign" data-placement="bottom"  data-container="body" data-toggle="popover" style="color: darkseagreen" data-trigger="hover" data-content="The variant may lead to change of these groups,see below for details"></span>
+                            </th>
+                            <th style="text-align: center" ng-show="effect">Impact Score
+                                <span class="glyphicon glyphicon-question-sign" data-placement="right"  data-container="body" data-toggle="popover" style="color: darkseagreen" data-trigger="hover" data-content="scores > 0.7 are classified as 'Pathogenic'. Mutations are classed as 'Neutral' if the score < 0.5"></span>
+                            </th>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in cnv_lnc">
+                                <td>
+                                    <a href="#!/lncrna_info?lncrna={$ item.lncrna $}">{$ item.lncrna $}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="http://cancer.sanger.ac.uk/cosmic/ncv/overview?id={$ item.cosmic_cnv_id.substring(4,15) $}" target="_blank" class="col">{$ item.cosmic_cnv_id $}</a>
+                                </td>
+                                <td style="text-align: center">{$ item.chr $}</td>
+                                <td style="text-align: center">{$ item.start $}</td>
+                                <td style="text-align: center">{$ item.end $}</td>
+                                <td ng-show="item.noncoding_groups" style="text-align: center">{$ item.noncoding_groups $}</td>
+                                <td ng-show="item.noncoding_groups" style="text-align: center">{$ item.noncoding_score $}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="panel panel-default" ng-show="effect">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Description for each of the feature groups [A-J]</h3>
+                        </div>
+                        <div class="panel-body">
+                            <ul>
+                                <li>A.46-Way Sequence Conservation: based on multiple sequence alignment scores, at the nucleotide level, of 46 vertebrate genomes compared with the human genome.</li>
+                                <li>B.Histone Modifications (ChIP-Seq): based on ChIP-Seq peak calls for histone modifications.</li>
+                                <li>C.Transcription Factor Binding Sites (TFBS PeakSeq): based on PeakSeq peak calls for various transcription factors.</li>
+                                <li>D.Open Chromatin (DNase-Seq): based on DNase-Seq peak calls.</li>
+                                <li>E.100-Way Sequence Conservation: based on multiple sequence alignment scores, at the nucleotide level, of 100 vertebrate genomes compared with the human genome.</li>
+                                <li>F.GC Content: based on a single measure for GC content calculated using a span of five nucleotide bases from the UCSC Genome Browser.</li>
+                                <li>G.Open Chromatin (FAIRE): based on formaldehyde-assisted isolation of regulatory elements (FAIRE) peak calls.</li>
+                                <li>H.Transcription Factor Binding Sites (TFBS SPP): based on SPP peak calls for various transcription factors.</li>
+                                <li>I.Genome Segmentation: based on genome-segmentation states using a consensus merge of segmentations produced by the ChromHMM and Segway software.</li>
+                                <li>J.Footprints: based on annotations describing DNA footprints across cell types from ENCODE.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="panel panel-default" ng-show="four" id="section-4" >
+            <div class="panel-heading" style="background-color: #3F96C3">
+                <strong style="color: white">Mutation causes miRNA:lncRNA Gains</strong>
+            </div>
+            <div class="panel-body">
+                <div class="pre-scrollable">
+                    <table class="table table-bordered" id="snp_gain_table" ts-wrapper>
+                        <thead>
+                        <tr>
+                            <th ts-criteria="miRNA" style="width: 14%">miRNA ID</th>
+                            <th ts-criteria="lncRNA" style="width: 14%">lncRNA</th>
+                            <th ts-criteria="SNP" style="width: 10%">Mutation</th>
+                            <th ts-criteria="energy|parseFloat" style="width: 10%">Energy (kCal/Mol)</th>
+                            <th ts-criteria="t_start|parseInt" style="width: 12%">Binding Start (TargetScan)</th>
+                            <th ts-criteria="t_end|parseInt" style="width: 12%">Binding End (TargetScan)</th>
+                            <th ts-criteria="m_start|parseInt" style="width: 12%">Binding Start (miRanda)</th>
+                            <th ts-criteria="m_end|parseInt" style="width: 13%">Binding End (miRanda)</th>
+                            <th style="width: 3%">Detail</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in target_gain" ts-repeat>
+                            <td>
+                                <a href="#!/mirna_info?mirna={$ item.miRNA $}">{$ item.miRNA $}</a>
+                            </td>
+                            <td>
+                                <a href="#!lncrna_info?lncrna={$ item.lncRNA $}">{$ item.lncRNA $}</a>
+                            </td>
+                            <td> <a href="http://cancer.sanger.ac.uk/cosmic/ncv/overview?id={$ item.SNP.substring(4,15) $}" target="_blank" class="col">{$ item.SNP $}</a></td>
+                            <td>{$ item.energy $}</td>
+                            <td>{$ item.t_start $}</td>
+                            <td>{$ item.t_end $}</td>
+                            <td>{$ item.m_start $}</td>
+                            <td>{$ item.m_end $}</td>
+                            <td> <button class="btn btn-success" data-toggle="modal" data-target="#myModal" ng-click="modal_title(item)">show</button></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default" ng-show="five" id="section-5" >
+            <div class="panel-heading" style="background-color: #3F96C3">
+                <strong style="color: white">Mutation causes miRNA:lncRNA Losses</strong>
+            </div>
+            <div class="panel-body">
+                <div class="pre-scrollable" >
+                    <table class="table table-bordered" id="snp_loss_table" ts-wrapper>
+                        <thead>
+                        <tr>
+                            <th ts-criteria="miRNA" style="width: 14%">miRNA ID</th>
+                            <th ts-criteria="lncRNA" style="width: 14%">lncRNA</th>
+                            <th ts-criteria="SNP" style="width: 10%">Mutation</th>
+                            <th ts-criteria="energy|parseFloat" style="width: 10%">Energy (kCal/Mol)</th>
+                            <th ts-criteria="t_start|parseInt" style="width: 12%">Binding Start (TargetScan)</th>
+                            <th ts-criteria="t_end|parseInt" style="width: 12%">Binding End (TargetScan)</th>
+                            <th ts-criteria="m_start|parseInt" style="width: 12%">Binding Start (miRanda)</th>
+                            <th ts-criteria="m_end|parseInt" style="width: 13%">Binding End (miRanda)</th>
+                            <th style="width: 2%">
+                                <span class="glyphicon glyphicon-question-sign" data-toggle="popover" data-container="body" data-trigger="hover" data-content="Whether miRNA:lncRNA experiment supported" style="color: #5bc0de"></span>
+                            </th>
+                            <th style="width: 3%">Detail</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in target_loss" ts-repeat>
+                            <td>
+                                <a href="#!/mirna_info?mirna={$ item.miRNA $}">{$ item.miRNA $}</a>
+                            </td>
+                            <td>
+                                <a href="#!/lncrna_info?lncrna={$ item.miRNA $}">{$ item.lncRNA $}</a>
+                            </td>
+                            <td> <a href="http://cancer.sanger.ac.uk/cosmic/ncv/overview?id={$ item.SNP.substring(4,15) $}" target="_blank" class="col">{$ item.SNP $}</a></td>
+                            <td>{$ item.energy $}</td>
+                            <td>{$ item.t_start $}</td>
+                            <td>{$ item.t_end $}</td>
+                            <td>{$ item.m_start $}</td>
+                            <td>{$ item.m_end $}</td>
+                            <td>
+                                <span class="glyphicon glyphicon-ok" style="color: deepskyblue" ng-show="item.experiment"></span>
+                                <span class="glyphicon glyphicon-remove" style="color: red" ng-show="!item.experiment"></span>
+                            </td>
+                            <td> <button class="btn btn-success" data-toggle="modal" data-target="#myModal" ng-click="modal_title1(item)">show</button></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="fade" tabindex="-1">
+    <div class="dialog">
+        <div class="content"></div>
+    </div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    {$ modal_header $}
+                </h4>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered table-hover table-condensed">
+                    <tr>
+                        <th>miRNA</th>
+                        <td colspan="2">{$ target.miRNA $}</td>
+                    </tr>
+                    <tr>
+                        <th>Mutation</th>
+                        <td colspan="2">{$ target.SNP $}</td>
+                    </tr>
+                    <tr>
+                        <th>lncRNA</th>
+                        <td colspan="2">{$ target.lncRNA $}</td>
+                    </tr>
+                    <tr>
+                        <th rowspan="2">TargetScan</th>
+                        <th class="success" style="width: 50%">start</th>
+                        <th class="success" style="width: 50%">end</th>
+                    </tr>
+                    <tr>
+                        <td style="width: 100px">{$ target.t_start $}</td>
+                        <td style="width: 100px">{$ target.t_end $}</td>
+                    </tr>
+                    <tr>
+                        <th rowspan="5">miRanda</th>
+                        <th class="success" style="width: 50%">start</th>
+                        <th class="success" style="width: 50%">end</th>
+                    </tr>
+                    <tr>
+                        <td style="width: 50%">{$ target.m_start $}</td>
+                        <td style="width: 50%">{$ target.m_end $}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><strong>Score:</strong>
+                            {$ target.score $}
+                            <strong>Energy:</strong>
+                            {$ target.energy $}kCal/mol
+                            <strong>Strand:</strong>
+                            {$ target.strand $}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">{$ target.info $}</td>
+                    </tr>
+                    <tr>
+                        <td class="warning" colspan="4">
+                            <pre>{$ target.query $}<br>{$ target.detail $}<br>{$ target.ref $} </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Close
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>

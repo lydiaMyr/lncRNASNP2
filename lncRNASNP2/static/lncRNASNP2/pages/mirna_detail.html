@@ -1,0 +1,499 @@
+<div ng-show="error">
+    Sorry,your query item is not exist in our database
+</div>
+<div class="flyover" ng-hide="miRNA.mirna">
+    <div class="mask"></div>
+    <div class="spinner"></div>
+</div>
+<div ng-show="snp_tag">
+    <ul class="nav nav-tabs" ng-show="miRNA.mirna">
+        <li id="one" ng-click="show_one('one')" ng-show="miRNA.mirna" class="active" style=" background-color:  #EBEBEB;margin-right: 3px"><a data-toggle="tab" style="font-size: large">miRNA Detail</a></li>
+        <li id="two" ng-click="show_one('two')" class="class_two" ng-show="miRNA.gain" style=" background-color:  #EBEBEB;margin-right: 3px"><a data-toggle="tab" style="font-size: large">miRNA target gains</a></li>
+        <li id="three" ng-click="show_one('three')" class="class_three" ng-show="miRNA.loss" style=" background-color:  #EBEBEB;margin-right: 3px"><a data-toggle="tab" style="font-size: large">miRNA target losses</a></li>
+    </ul>
+</div>
+<div ng-show="not_snp_tag">
+    <ul class="nav nav-tabs" ng-show="miRNA.mirna">
+        <li id="one" ng-click="show_one('one')" ng-show="miRNA.mirna" class="active" style=" background-color:  #EBEBEB;margin-right: 3px"><a data-toggle="tab" style="font-size: large">miRNA Detail</a></li>
+        <li id="four" ng-click="show_one('two')" class="class_four" ng-show="miRNA.cons" style=" background-color:  #EBEBEB;margin-right: 3px"><a data-toggle="tab" style="font-size: large">Conserved miRNA targets</a></li>
+        <li id="five" ng-click="show_one('three')" class="class_five" ng-show="miRNA.non_cons" style=" background-color:  #EBEBEB;margin-right: 3px"><a data-toggle="tab" style="font-size: large">Non-conserved miRNA targets</a></li>
+    </ul>
+</div>
+<div ng-show="miRNA.mirna">
+    <div class="panel panel-default" ng-show="one">
+        <div class="panel-heading" style="background-color: #3F96C3">
+            <strong style="color: white">Basic information of miRNA:{$ miRNA.mirna $}</strong>
+        </div>
+        <div class="panel-body">
+            <dl class="dl-horizontal">
+                <dt>miRNA ID</dt>
+                <dd>{$ miRNA.mirna $}</dd>
+                <dt>Accession</dt>
+                <dd>{$ miRNA.accession $}</dd>
+                <dt>Coordinates</dt>
+                <dd>{$ miRNA.pre_mature_pos $}[{$ miRNA.strand $}]</dd>
+                <dt>Mature Sequence</dt>
+                <dd>{$ miRNA.mature_sequence $}</dd>
+                <dt>Average expression
+                    <span class="glyphicon glyphicon-question-sign" data-toggle="popover" data-container="body" data-trigger="hover" data-content="miRNA expression profiles were calculated from 36 cancer types of  11635 samples from TCGA" style="color: #5bc0de"></span>
+                </dt>
+                <dd>{$ miRNA.expression $}</dd>
+                <dt>Profile
+                    <span class="glyphicon glyphicon-question-sign" data-toggle="popover" data-container="body" data-trigger="hover" data-content="The average expression levels in different cancer samples are from green(low) to red(high)" style="color: #5bc0de"></span>
+                </dt>
+                <dd>
+                    <div>
+                        <div class="mirna-profile cursor-hand" title="sample={$ mirna_expression.sample $}; expression={$ mirna_expression.expression $}" style="background-color: {$ mirna_expression.color $};" ng-repeat="mirna_expression in mirna_profile"></div>
+                    </div>
+                </dd>
+                <dt>Precursor</dt>
+                <dd>{$ miRNA.precursor $}</dd>
+                <dt>Pre-miR Coordinates</dt>
+                <dd>{$ miRNA.position$}[{$ miRNA.strand $}]</dd>
+                <dt>Pre-miR sequence</dt>
+                <dd>{$ miRNA.pre_mature_sequence $}</dd>
+            </dl>
+        </div>
+    </div>
+</div>
+<div ng-show="snp_tag">
+    <div class="panel panel-default" ng-show="two">
+        <div class="panel-heading" style="background-color: #3F96C3">
+            <strong style="color: white">Target Gains</strong>
+        </div>
+        <div class="panel-body">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row">
+                        <strong class="pull-left col-lg-5">
+                            SNPs cause miRNA:lncRNA gains
+                        </strong>
+                        <div class="pull-right col-lg-5" >
+                            <div class="input-group">
+                                <input type="text" class="form-control" style="border-color: #81C2D6" data-provide="typeahead" placeholder="NONHSAT071794.2" id="search_gain">
+                                <span class="input-group-btn">
+						<button class="btn btn-default" type="button" ng-click="search_mirna_gain()">
+							Search
+						</button>
+					</span>
+                            </div><!-- /input-group -->
+                        </div>
+                    </div>
+                </div>
+                <div >
+                    <div ng-show="gain_zero">
+                        <div class="alert alert-info" role="alert">
+                            Sorry,your query item is not exist in our database
+                        </div>
+                    </div>
+                    <div ng-show="initial">
+                    <div class="flyover" ng-hide="target_gain.length">
+                        <div class="mask"></div>
+                        <div class="spinner"></div>
+                    </div>
+                    </div>
+                    <div class="pre-scrollable" ng-show="target_gain.length" style="margin-top: 10px">
+                        <table class="table table-bordered" ts-wrapper>
+                            <thead>
+                            <tr>
+                                <th ts-criteria="lncRNA">lncRNA</th>
+                                <th ts-criteria="miRNA" style="width: 10%">miRNA</th>
+                                <th ts-criteria="SNP">SNP</th>
+                                <th>Interaction</th>
+                                <th ts-criteria="chromosome">lncRNA Chr</th>
+                                <th ts-criteria="m_start|parseInt" style="width: 8%">Binding Start</th>
+                                <th ts-criteria="m_end|parseInt" style="width: 8%">Binding End</th>
+                                <th ts-criteria="energy|parseFloat">Energy (kCal/Mol)</th>
+                                <th ts-criteria="score|parseFloat" style="width: 10%">Score</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in target_gain" ts-repeat>
+                                <td>
+                                    <a href="#!/lncrna_info?lncrna={$ item.lncRNA $}">{$ item.lncRNA $}</a>
+                                </td>
+                                <td>{$ item.miRNA $}</td>
+                                <td><a href="#!/snp_info?snp={$ item.SNP $}"></a>{$ item.SNP $}</td>
+                                <td><pre>{$ item.query $}<br>{$ item.detail $}<br>{$ item.ref $}</pre>
+                                </td>
+                                <td>{$ item.chromosome $}</td>
+                                <td>{$ item.m_start $}</td>
+                                <td>{$ item.m_end $}</td>
+                                <td>{$ item.energy $}</td>
+                                <td>{$ item.score $}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default" ng-show="tcga_gain_count">
+                <div class="panel-heading" data-toggle="collapse" data-target="#collapsetcga_gain">
+                    <strong>
+                        TCGA cancer mutations cause miRNA:lncRNA gains
+                    </strong>
+                </div>
+                <div id="collapsetcga_gain" class="panel-collapse collapse in" >
+                    <div class="pre-scrollable" ng-show="tcga_target_gain.length" style="margin-top: 10px">
+                        <table class="table table-bordered" ts-wrapper>
+                            <thead>
+                            <tr>
+                                <th ts-criteria="lncRNA">lncRNA</th>
+                                <th ts-criteria="miRNA" style="width: 10%">miRNA</th>
+                                <th ts-criteria="SNP">Mutation</th>
+                                <th>Interaction</th>
+                                <th ts-criteria="chromosome">lncRNA Chr</th>
+                                <th ts-criteria="m_start|parseInt" style="width: 8%">Binding Start</th>
+                                <th ts-criteria="m_end|parseInt" style="width: 8%">Binding End</th>
+                                <th ts-criteria="energy|parseFloat">Energy (kCal/Mol)</th>
+                                <th ts-criteria="score|parseFloat" style="width: 10%">Score</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in tcga_target_gain" ts-repeat>
+                                <td>
+                                    <a href="#!/lncrna_info?lncrna={$ item.lncRNA $}">{$ item.lncRNA $}</a>
+                                </td>
+                                <td>{$ item.miRNA $}</td>
+                                <td><a href="#!/snp_info?snp={$ item.SNP $}">{$ item.SNP $}</a></td>
+                                <td><pre>{$ item.query $}<br>{$ item.detail $}<br>{$ item.ref $}</pre>
+                                </td>
+                                <td>{$ item.chromosome $}</td>
+                                <td>{$ item.m_start $}</td>
+                                <td>{$ item.m_end $}</td>
+                                <td>{$ item.energy $}</td>
+                                <td>{$ item.score $}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default" ng-show="cosmic_gain_count">
+                <div class="panel-heading" data-toggle="collapse" data-target="#collapsecosmic_gain">
+                    <strong>
+                        CosmicNCVs cause miRNA:lncRNA gains
+                    </strong>
+                </div>
+                <div id="collapsecosmic_gain" class="panel-collapse collapse in" >
+                    <div class="flyover" ng-hide="cosmic_target_gain.length">
+                        <div class="mask"></div>
+                        <div class="spinner"></div>
+                    </div>
+                    <div class="pre-scrollable" ng-show="cosmic_target_gain.length" ts-wrapper>
+                        <table class="table table-bordered" ts-wrapper>
+                            <thead>
+                            <tr>
+                                <th ts-criteria="lncRNA">lncRNA</th>
+                                <th ts-criteria="miRNA" style="width: 10%">miRNA</th>
+                                <th ts-criteria="SNP">Mutation</th>
+                                <th>Interaction</th>
+                                <th ts-criteria="chromosome">lncRNA Chr</th>
+                                <th ts-criteria="m_start|parseInt" style="width: 8%">Binding Start</th>
+                                <th ts-criteria="m_end|parseInt" style="width: 8%">Binding End</th>
+                                <th ts-criteria="energy|parseFloat">Energy (kCal/Mol)</th>
+                                <th ts-criteria="score|parseFloat" style="width: 10%">Score</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in cosmic_target_gain" ts-repeat>
+                                <td>
+                                    <a href="#!/lncrna_info?lncrna={$ item.lncRNA $}">{$ item.lncRNA $}</a>
+                                </td>
+                                <td>{$ item.miRNA $}</td>
+                                <td><a href="#!/cosmic_info?id_cnv={$ item.SNP.substring(0,item.SNP.length-4) $}">{$ item.SNP $}</a></td>
+                                <td><pre>{$ item.query $}<br>{$ item.detail $}<br>{$ item.ref $}</pre>
+                                </td>
+                                <td>{$ item.chromosome $}</td>
+                                <td>{$ item.m_start $}</td>
+                                <td>{$ item.m_end $}</td>
+                                <td>{$ item.energy $}</td>
+                                <td>{$ item.score $}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default" ng-show="three">
+        <div class="panel-heading" style="background-color: #3F96C3">
+            <strong style="color: white">Target Losses</strong>
+        </div>
+        <div class="panel-body">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row">
+                        <strong class="pull-left col-lg-5">
+                            SNPs cause miRNA:lncRNA losses
+                        </strong>
+                        <div class="pull-right col-lg-5">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="NONHSAT201332.1" style="border-color: #81C2D6" data-provide="typeahead" id="search_loss">
+                                <span class="input-group-btn">
+						<button class="btn btn-default" type="button" ng-click="search_mirna_loss()">
+							Search
+						</button>
+					</span>
+                            </div><!-- /input-group -->
+                        </div>
+                    </div>
+                </div>
+                <div id="collapsesnp_loss" >
+                    <div ng-show="initial">
+                        <div class="flyover" ng-hide="target_loss.length">
+                            <div class="mask"></div>
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+                    <div ng-show="loss_zero">
+                        <div class="alert alert-info" role="alert">
+                            Sorry,your query item is not exist in our database
+                        </div>
+                    </div>
+                    <div class="pre-scrollable" ng-show="target_loss.length">
+                        <table class="table table-bordered" ts-wrapper style="margin-top: 25px">
+                            <thead>
+                            <tr>
+                                <th ts-criteria="lncRNA">lncRNA</th>
+                                <th ts-criteria="miRNA" style="width: 10%">miRNA</th>
+                                <th ts-criteria="SNP">SNP</th>
+                                <th>Interaction</th>
+                                <th ts-criteria="chromosome">lncRNA Chr</th>
+                                <th ts-criteria="m_start|parseInt" style="width: 8%">Binding Start</th>
+                                <th ts-criteria="m_end|parseInt" style="width: 8%">Binding End</th>
+                                <th ts-criteria="energy|parseFloat">Energy (kCal/Mol)</th>
+                                <th ts-criteria="score|parseFloat" style="width: 10%">Score</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in target_loss">
+
+                                <td>
+                                    <a href="#!/lncrna_info?lncrna={$ item.lncRNA $}">{$ item.lncRNA $}</a>
+                                </td>
+                                <td>{$ item.miRNA $}</td>
+                                <td><a href="#!/snp_info?snp={$ item.SNP $}">{$ item.SNP $}</a></td>
+                                <td><pre>{$ item.query $}<br>{$ item.detail $}<br>{$ item.ref $}</pre>
+                                </td>
+                                <td>{$ item.chromosome $}</td>
+                                <td>{$ item.m_start $}</td>
+                                <td>{$ item.m_end $}</td>
+                                <td>{$ item.energy $}</td>
+                                <td>{$ item.score $}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default" ng-show="tcga_loss_count">
+                <div class="panel-heading" data-toggle="collapse" data-target="#collapsetcga_loss">
+                    <strong>
+                        TCGA cancer mutations cause miRNA:lncRNA losses
+                    </strong>
+                </div>
+                <div id="collapsetcga_loss" class="panel-collapse collapse in" >
+                    <div class="pre-scrollable" ng-show="tcga_target_loss.length" style="margin-top: 10px">
+                        <table class="table table-bordered" ts-wrapper>
+                            <thead>
+                            <tr>
+                                <th ts-criteria="lncRNA">lncRNA</th>
+                                <th ts-criteria="miRNA" style="width: 10%">miRNA</th>
+                                <th ts-criteria="SNP">Mutation</th>
+                                <th>Interaction</th>
+                                <th ts-criteria="chromosome">lncRNA Chr</th>
+                                <th ts-criteria="m_start|parseInt" style="width: 8%">Binding Start</th>
+                                <th ts-criteria="m_end|parseInt" style="width: 8%">Binding End</th>
+                                <th ts-criteria="energy|parseFloat">Energy (kCal/Mol)</th>
+                                <th ts-criteria="score|parseFloat" style="width: 10%">Score</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in tcga_target_gain" ts-repeat>
+                                <td>
+                                    <a href="#!/lncrna_info?lncrna={$ item.lncRNA $}">{$ item.lncRNA $}</a>
+                                </td>
+                                <td>{$ item.miRNA $}</td>
+                                <td><a href="#!/snp_info?snp={$ item.SNP $}"></a>{$ item.SNP $}</td>
+                                <td><pre>{$ item.query $}<br>{$ item.detail $}<br>{$ item.ref $}</pre>
+                                </td>
+                                <td>{$ item.chromosome $}</td>
+                                <td>{$ item.m_start $}</td>
+                                <td>{$ item.m_end $}</td>
+                                <td>{$ item.energy $}</td>
+                                <td>{$ item.score $}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default" ng-show="cosmic_loss_count">
+                <div class="panel-heading" data-toggle="collapse" data-target="#collapsecosmic_gain">
+                    <strong>
+                        CosmicNCVs cause miRNA:lncRNA losses
+                    </strong>
+                </div>
+                <div id="collapsecosmic_gain" class="panel-collapse collapse in" >
+                    <div class="flyover" ng-hide="cosmic_target_loss.length">
+                        <div class="mask"></div>
+                        <div class="spinner"></div>
+                    </div>
+                    <div class="pre-scrollable" ng-show="cosmic_target_loss.length" ts-wrapper>
+                        <table class="table table-bordered" ts-wrapper>
+                            <thead>
+                            <tr>
+                                <th ts-criteria="lncRNA">lncRNA</th>
+                                <th ts-criteria="miRNA" style="width: 10%">miRNA</th>
+                                <th ts-criteria="SNP" style="width: 100px">Mutation</th>
+                                <th>Interaction</th>
+                                <th ts-criteria="chromosome">lncRNA Chr</th>
+                                <th ts-criteria="m_start|parseInt" style="width: 8%">Binding Start</th>
+                                <th ts-criteria="m_end|parseInt" style="width: 8%">Binding End</th>
+                                <th ts-criteria="energy|parseFloat">Energy (kCal/Mol)</th>
+                                <th ts-criteria="score|parseFloat" style="width: 10%">Score</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in cosmic_target_loss" ts-repeat>
+                                <td>
+                                    <a href="#!/lncrna_info?lncrna={$ item.lncRNA $}">{$ item.lncRNA $}</a>
+                                </td>
+                                <td>{$ item.miRNA $}</td>
+                                <td style="width: 100px"><a href="#!/cosmic_info?id_cnv={$ item.SNP.substring(0,item.SNP.length-4) $}">{$ item.SNP $}</a></td>
+                                <td><pre>{$ item.query $}<br>{$ item.detail $}<br>{$ item.ref $}</pre>
+                                </td>
+                                <td>{$ item.chromosome $}</td>
+                                <td>{$ item.m_start $}</td>
+                                <td>{$ item.m_end $}</td>
+                                <td>{$ item.energy $}</td>
+                                <td>{$ item.score $}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-show="not_snp_tag">
+    <div class="panel panel-default" ng-show="two">
+        <div class="panel-heading" style="background-color: #3F96C3">
+            <strong style="color: white">Conserved targets of miRNA:{$ miRNA.mirna $}</strong>
+        </div>
+        <div class="panel-body">
+            <div class="flyover" ng-hide="cons_mirna_target.length">
+                <div class="mask"></div>
+                <div class="spinner"></div>
+            </div>
+            <div class="pre-scrollable" ng-show="cons_mirna_target.length">
+                <table class="table table-bordered" ts-wrapper>
+                    <thead>
+                    <tr>
+                        <th ts-criteria="lncRNA">lncRNA</th>
+                        <th ts-criteria="miRNA" style="width: 10%">miRNA</th>
+                        <th>Interaction</th>
+                        <th>
+                            <span class="glyphicon glyphicon-question-sign" data-toggle="popover" data-container="body" data-trigger="hover" data-content="Whether miRNA:lncRNA experiment supported" style="color: #5bc0de"></span>
+                        </th>
+                        <th ts-criteria="chromosome">lncRNA Chr</th>
+                        <th ts-criteria="m_start|parseInt" style="width: 8%">Binding Start</th>
+                        <th ts-criteria="m_end|parseInt" style="width: 8%">Binding End</th>
+                        <th ts-criteria="energy|parseFloat">Energy (kCal/Mol)</th>
+                        <th ts-criteria="score|parseFloat" style="width: 10%">Score</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in cons_mirna_target" ts-repeat>
+                        <td>
+                            <a href="#!/lncrna_info?lncrna={$ item.lncRNA $}">{$ item.lncRNA $}</a>
+                        </td>
+                        <td>{$ item.miRNA$}</td>
+                        <td><pre>{$ item.query $}<br>{$ item.detail $}<br>{$ item.ref $}</pre>
+                        </td>
+                        <td>
+                            <span class="glyphicon glyphicon-ok" style="color: deepskyblue" ng-show="item.experiment"></span>
+                            <span class="glyphicon glyphicon-remove" style="color: red" ng-show="!item.experiment"></span>
+                        </td>
+                        <td>{$ item.chromosome $}</td>
+                        <td>{$ item.m_start $}</td>
+                        <td>{$ item.m_end $}</td>
+                        <td>{$ item.energy $}</td>
+                        <td>{$ item.score $}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default" ng-show="three">
+        <div class="panel-heading" style="background-color: #3F96C3">
+            <div class="row">
+                <strong class="pull-left col-lg-5" style="color: white">Non-Conserved targets of miRNA:{$ miRNA.mirna $}</strong>
+                <div class="pull-right col-lg-5">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="NONHSAT201332.1" style="border-color: #81C2D6" data-provide="typeahead" id="non_cons">
+                        <span class="input-group-btn">
+						<button class="btn btn-default" type="button" ng-click="search_mirna_non_cons()">
+							Search
+						</button>
+					</span>
+                    </div><!-- /input-group -->
+                </div>
+            </div>
+
+        </div>
+        <div class="panel-body">
+            <div ng-show="non_cons_zero">
+                <div class="alert alert-info" role="alert">
+                    Sorry,your query item is not exist in our database
+                </div>
+            </div>
+            <div ng-show="initial">
+                <div class="flyover" ng-hide="non_cons_mirna_target.length">
+                    <div class="mask"></div>
+                    <div class="spinner"></div>
+                </div>
+            </div>
+            <div class="pre-scrollable">
+                <table class="table table-bordered" ts-wrapper ng-show="non_cons_mirna_target.length">
+                    <thead>
+                    <tr>
+                        <th ts-criteria="lncRNA">lncRNA</th>
+                        <th ts-criteria="miRNA" style="width: 10%">miRNA</th>
+                        <th>Interaction</th>
+                        <th>
+                            <span class="glyphicon glyphicon-question-sign" data-toggle="popover" data-container="body" data-trigger="hover" data-content="Whether miRNA:lncRNA experiment supported" style="color: #5bc0de"></span>
+                        </th>
+                        <th ts-criteria="chromosome">lncRNA Chr</th>
+                        <th ts-criteria="m_start|parseInt" style="width: 8%">Binding Start</th>
+                        <th ts-criteria="m_end|parseInt" style="width: 8%">Binding End</th>
+                        <th ts-criteria="energy|parseFloat">Energy (kCal/Mol)</th>
+                        <th ts-criteria="score|parseFloat" style="width: 10%">Score</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in non_cons_mirna_target" ts-repeat>
+                        <td><a href="#!/lncrna_info?lncrna={$ item.lncRNA $}">{$ item.lncRNA $}</a></td>
+                        <td>{$ item.miRNA$}</td>
+                        <td><pre>{$ item.query $}<br>{$ item.detail $}<br>{$ item.ref $}</pre></td>
+                        <td>
+                            <span class="glyphicon glyphicon-ok" style="color: deepskyblue" ng-show="item.experiment"></span>
+                            <span class="glyphicon glyphicon-remove" style="color: red" ng-show="!item.experiment"></span>
+                        </td>
+                        <td>{$ item.chromosome $}</td>
+                        <td>{$ item.m_start $}</td>
+                        <td>{$ item.m_end $}</td>
+                        <td>{$ item.energy $}</td>
+                        <td>{$ item.score $}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

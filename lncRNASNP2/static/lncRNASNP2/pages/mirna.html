@@ -1,0 +1,91 @@
+<div class="well"><p style="font-size: 16px">
+    In this module, we will display the miRNA:lncRNA interaction and related SNPs based on the miRNA expression. According to the analyses of miRNA expression profiles of 11635 small RNA samples from TCGA, we found that only 585 miRNAs (23% of miRBase annotated ) have a expression level >1 RPM (reads per million), the remaining 77% of miRNAs are at a very low or almost no expression level. Hence, we class all the miRNAs into four categories. Users can select interested miRNAs to obtain their target lncRNAs.
+</p></div>
+<table class="table table-bordered">
+    <tr>
+        <th></th>
+        <th class="text-center" width="200">miRNAs</th>
+        <th class="text-center">Show all target lncRNAs</th>
+        <th class="text-center">Show targeted lncRNAs with SNPs</th>
+    </tr>
+    <tr>
+        <td>
+            <strong>Highly expressed miRNA (RPM>=1000)</strong>
+        </td>
+        <td class="text-center">
+            <select class="form-control" id="hmirna">
+                <option ng-repeat="item in hmirnas_collections">{$ item.miRNA $}</option>
+            </select>
+        </td>
+        <td class="text-center">
+            <button class="btn btn-sm btn-info" ng-click="show_detail('hmirna')">
+                <span class="col-sm-2">View</span>
+            </button>
+        </td>
+        <td class="text-center">
+            <button class="btn btn-sm btn-info" ng-click="show_snp_target('hmirna')">
+                <span class="col-sm-2">View</span>
+            </button>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <strong>Middle expressed miRNA (10<=RPM<1000)</strong>
+        </td>
+        <td class="text-center">
+            <select class="form-control"  id="mmirna">
+                <option ng-repeat="item in mmirnas_collections">{$ item.miRNA $}</option>
+            </select>
+        </td>
+        <td class="text-center">
+            <button class="btn btn-sm btn-info" ng-click="show_detail('mmirna')">
+                <span class="col-sm-2">View</span>
+            </button>
+        </td>
+        <td class="text-center">
+            <button class="btn btn-sm btn-info" ng-click="show_snp_target('mmirna')">
+                <span class="col-sm-2">View</span>
+            </button>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <strong>Lowly expressed miRNA (1<=RPM<10)</strong>
+        </td>
+        <td class="text-center">
+            <select class="form-control" id="lmirna">
+                <option ng-repeat="item in lmirnas_collections">{$ item.miRNA $}</option>
+            </select>
+        </td>
+        <td class="text-center">
+            <button class="btn btn-sm btn-info" ng-click="show_detail('lmirna')">
+                <span class="col-sm-2">View</span>
+            </button>
+        </td>
+        <td class="text-center">
+            <button class="btn btn-sm btn-info" ng-click="show_snp_target('lmirna')">
+                <span class="col-sm-2">View</span>
+            </button>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <strong>Very lowly expressed miRNA (RPM<1)</strong>
+        </td>
+        <td class="text-center">
+            <select class="form-control"  id="vmirna">
+                <option ng-repeat="item in vmirnas_collections">{$ item.miRNA $}</option>
+            </select>
+        </td>
+        <td class="text-center">
+            <button class="btn btn-sm btn-info" ng-click="show_detail('vmirna')">
+                <span class="col-sm-2">View</span>
+            </button>
+        </td>
+        <td class="text-center">
+            <button class="btn btn-sm btn-info" ng-click="show_snp_target('vmirna')">
+                <span class="col-sm-2">View</span>
+            </button>
+        </td>
+    </tr>
+</table>

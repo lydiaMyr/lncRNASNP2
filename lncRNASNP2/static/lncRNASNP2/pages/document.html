@@ -1,0 +1,205 @@
+<ul>
+    <li><a href="#!/document/#one">1. What is lncRNASNP?</a></li>
+    <li><a href="#!/document/#two">2. Data sources and tools for analyze</a></li>
+    <li><a href="#!/document/#three">3. Pipeline to construct lncRNASNP2</a></li>
+    <li><a href="#!/document/#four">5. The definition of conservation of miRNA target sites in our database</a></li>
+    <li><a href="#!/document/#five">5. The definition of GWAS tagSNP linkage disequilibrium (LD) region in our database</a></li>
+    <li><a href="#!/document/#six">6. Information of CosmicNCV (Cosmic Nocoding Variants)</a></li>
+    <li><a href="#!/document/#seven">7. About TCGA Mutation data</a></li>
+    <li><a href="#!/document/#eigth">8. Description of RNAsnp parameters</a></li>
+    <li><a href="#!/document/#nine">9. Quick search and advanced search</a></li>
+</ul>
+<div class="panel panel-info" id="one">
+    <div class="panel-heading">What is lncRNASNP?</div>
+    <div class="panel-body">
+        <p>
+        <strong>LncRNASNP</strong> is a database to provide a comprehensive resource of variants on human lincRNAs. It contains variants including SNPs, TCGA cancer mutations and CosmicNCVs in lncRNAs, structure change by SNP, function change by mutations, the binding sites of lncRNA:miRNA and potential functional variants which can impact lncRNA:miRNA interaction. In addition, lncRNASNP also integrates GWAS data and miRNA expression data into functional SNP selection for genetic association studies. Currently, users can:
+        <span>
+            <ul>
+                <li>Browse or search SNPs in lncRNAs and their impacts on lncRNA;</li>
+                <li>Browse or search Cosmic noncoding variants and their effects on lnRNA;</li>
+                <li>Browse or search TCGA mutations in lncRNAs and their effects on lncRNAs;</li>
+                <li>Browse or search miRNA binding sites on lncRNAs;</li>
+                <li>Browse or search miRNA binding sites on lncRNAs;</li>
+                <li>Browse or search SNPs in GWAS linkage disequilibrium (LD) regions;</li>
+                <li>Browse or search miRNA expression data to prioritize functional SNP selection;</li>
+                <li>Browse lncRNA expression in diseases;</li>
+            </ul>
+        </span>
+        </p>
+    </div>
+</div>
+<div class="panel panel-info" id="two">
+    <div class="panel-heading">Data sources and tools for analyze</div>
+    <div class="panel-body">
+        <table class="table table-bordered table-striped table-hover">
+            <tr>
+                <th style="width:30%">Data</th>
+                <th style="width:30%">Source</th>
+                <th style="width: 40%">URL</th>
+            </tr>
+            <tr>
+                <td>lncRNA</td>
+                <td>NONCODE2016</td>
+                <td><a href="http://www.noncode.org/">http://www.noncode.org/</a></td>
+            </tr>
+                <td>SNP</td>
+                <td>dbSNP(v149)</td>
+            <td><a href="https://www.ncbi.nlm.nih.gov/snp/">https://www.ncbi.nlm.nih.gov/snp/</a></td>
+            <tr>
+                <td>miRNA</td>
+                <td>miRBase (release 21)</td>
+                <td><a href="http://www.mirbase.org/ftp.shtml">http://www.mirbase.org/ftp.shtml</a></td>
+            </tr>
+            <tr>
+                <td>GWAS SNP</td>
+                <td>GWAS catalog</td>
+                <td><a href="https://www.genome.gov/26525384/">https://www.genome.gov/26525384/</a></td>
+            </tr>
+            <tr>
+                <td>miRNA expression</td>
+                <td>TCGA</td>
+                <td><a href="http://cancergenome.nih.gov/">http://cancergenome.nih.gov/</a></td>
+            </tr>
+            <tr>
+                <td>lncRNA expression in cancer</td>
+                <td>Tanric</td>
+                <td><a href="http://ibl.mdanderson.org/tanric/_design/basic/index.html">http://ibl.mdanderson.org/tanric/_design/basic/index.html</a></td>
+            </tr>
+            <tr>
+                <td>CosmicNCV (Cosmic Noncoding Variants)</td>
+                <td>Cosmic</td>
+                <td><a href="http://cancer.sanger.ac.uk/cosmic">http://cancer.sanger.ac.uk/cosmic</a></td>
+            </tr>
+        </table>
+
+        <table class="table table-bordered table-striped table-hover">
+            <tr>
+                <th style="width:30%">Tool</th>
+                <th style="width:30%">Usage</th>
+                <th style="width:40%">URL</th>
+            </tr>
+            <tr>
+                <td>miRanda</td>
+                <td>miRNA target prediction</td>
+                <td><a href="http://www.microrna.org/microrna/getDownloads.do">http://www.microrna.org/microrna/getDownloads.do</a></td>
+            </tr>
+            <tr>
+                <td>TargetScan</td>
+                <td>miRNA target prediction</td>
+                <td><a href="http://www.targetscan.org/vert_71/">http://www.targetscan.org/vert_71/</a></td>
+            </tr>
+            <tr>
+                <td>Pita</td>
+                <td>miRNA target prediction</td>
+                <td><a href="https://genie.weizmann.ac.il/pubs/mir07/mir07_data.html">https://genie.weizmann.ac.il/pubs/mir07/mir07_data.html</a></td>
+            </tr>
+            <tr>
+                <td>RNAsnp</td>
+                <td>predict snp effect of lncRNA</td>
+                <td><a href="http://rth.dk/resources/rnasnp/">http://rth.dk/resources/rnasnp/</a></td>
+            </tr>
+            <tr>
+                <td>liftover</td>
+                <td>obtain conserved regions</td>
+                <td><a href="http://genome.ucsc.edu/cgi-bin/hgLiftOver">http://genome.ucsc.edu/cgi-bin/hgLiftOver</a></td>
+            </tr>
+            <tr>
+                <td>UCSC tables</td>
+                <td>Obtain multiple alignment sequences</td>
+                <td><a href="http://genome.ucsc.edu/cgi-bin/hgTables">http://genome.ucsc.edu/cgi-bin/hgTables</a></td>
+            </tr>
+            <tr>
+                <td>SNAP</td>
+                <td>obtain tagSNP and LD region</td>
+                <td><a href="http://archive.broadinstitute.org/mpg/snap/ldsearch.php">http://archive.broadinstitute.org/mpg/snap/ldsearch.php</a></td>
+            </tr>
+            <tr>
+                <td>FATHMM</td>
+                <td>predict TCGA Mutation effect of lncRNA</td>
+                <td><a href="http://fathmm.biocompute.org.uk/">http://fathmm.biocompute.org.uk/</a></td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="panel panel-info" id="three">
+    <div class="panel-heading">Pipeline to construct lncRNASNP</div>
+    <div class="panel-body">
+        <img src="/static/lncRNASNP2_mouse/graph/flowchart.JPG">
+    </div>
+</div>
+<div class="panel panel-info" id="four">
+    <div class="panel-heading">The definition of conservation target sites in our database</div>
+    <div class="panel-body">
+        <p>
+            The regions of lncRNA exons were submitted to UCSC liftover tools, setting the minimum ratio of bases that must remap >50%, then convert to mouse, rat, dog assemblies. If one exon has output regions in other genome, we consider it conserved in other genome. Then, the conserved exon regions were submitted to UCSC Tables and we got MultiZ multiple alignments of the four species. Targetscan was used to predict the miRNA targets on these sequences and the miRNA binding sites existed in human, mouse, rat and dog alignment sequences are classified as conserved.
+        </p>
+    </div>
+</div>
+<div class="panel panel-info" id="five">
+    <div class="panel-heading">The definition of GWAS tagSNP linkage disequilibrium (LD) region in our database</div>
+    <div class="panel-body">
+        GWAS tagSNPs were downloaded from GWAS catalog website,then we used the SNAP (SNP Annotation and Proxy Search) to get the proxy SNP of each tagSNP,LD regions of each tagSNP is caculated from proxy snps,the population panels include ASW,CEU,CHD,GIH,LWK,MEX,MKK,TSI and YRI.
+    </div>
+</div>
+<div class="panel panel-info" id="six">
+    <div class="panel-heading">Info of CosmicNCV (Cosmic Nocoding Variants)</div>
+    <div class="panel-body">
+        CosmicNCV data were downloaded from<span><a href="http://cancer.sanger.ac.uk/cosmic"> Cosmic (Catalogue Of Somatic Mutations In Cancer)</a></span>, The mutation impact introduced in COSMIC v73 have been derived from the new FATHMM-MKL algorithm. This algorithm predicts the functional, molecular and phenotypic consequences of protein missense variants using hidden Markov models.
+    </div>
+</div>
+<div class="panel panel-info" id="seven">
+    <div class="panel-heading">About TCGA Mutation data</div>
+    <div class="panel-body">
+        TCGA mutation data in our database was downloaded from TCGA using firehose_get (https://confluence.broadinstitute.org/display/GDAC/Download), cancer types include ACC, BRCA, CESC, CHOL, COADREAD, DLBC, ESCA, GBM, GBMLGG, HNSC, KICH, KIRC, KIRP, LAML, LGG, LIHC, LUAD, LUSC, VO, PAAD, PCPG, PRAD, READ, SARC, SKCM, STAD, TGCT, THCA, THYM, UCEC, UCS, UVM. The mutation effects on lnRNA functions were analyzed by <a href="http://fathmm.biocompute.org.uk">FATHMM.</a>
+    </div>
+</div>
+<div class="panel panel-info" id="eight">
+    <div class="panel-heading">Description of RNAsnp parameters</div>
+    <div class="panel-body">
+        In lncRNASNP2, we used <a href="http://rth.dk/resources/rnasnp/">RNAsnp</a> to predict SNPs effects on lncRNAs, The program RNAsnp helps for an effective detection of local RNA secondary structural changes induced by the SNPs. RNAsnp starts with the computation of base pair probabilities for wild-type and mutant sequence (with SNP) by using the RNAfold or RNAplfold tools from Vienna RNA package.Further, the stuctural difference between the wild-type and mutant is assessed by computing the Pearson correlation coefficient and the Euclidean distance for all sequence intervals. The sequence interval with maximum distance or minimum correlation is
+finally reported with its p-value. This empirical p-value is computed using the background distribution given the sequence length, G+C content and SNP position.
+    </div>
+</div>
+<div class="panel panel-info" id="nine">
+    <div class="panel-heading">Quick search and advanced search</div>
+    <div class="panel-body">
+        In order to serve the community better, we provide a user-friendly web interface for lncRNASNP database. Users can browse or search the data at different levels.
+        <br>
+        <strong>Browse:</strong>
+        <p>    1.Browse by SNP</p>
+        <p>    2.Browse by miRNA</p>
+        <p>    3.Browse by lncRNA</p>
+        <p>    4.Browse by CosmicNCV (Cosmic Noncoding variants)</p>
+        <p>    3.Browse by TCGA mutation</p>
+        <strong>Search:</strong>
+        <p>    1.Quick search for ID of SNP, miRNA, lncRNA, TCGA cancer types and CosmincNCV on home page;</p>
+        <p>    2.Specific search or batch search for lncRNA, SNP, miRNA, and GWAS SNP are available on home page.</p>
+    </div>
+</div>
+<div class="panel panel-info">
+    <div class="panel-heading">
+    </div>
+    <div class="panel-body">
+        <div>
+    <h4>Any comments and suggestions, please contact us</h4>
+    <p>
+    <strong>An-Yuan Guo,Ph.D. Professor of Bioinformatics<br>
+        Email:</strong><span email2image width="250" height="22" email="guoay@hust.edu.cn"></span>
+    <p>
+    <p>
+    <strong>Ya-Ru Miao,M.S.<br>
+        Email:</strong><span email2image width="250" height="22" email="miaoyr@hust.edu.cn"></span>
+    </p>
+    <p>
+    <strong>Wei Liu,Ph.D.<br>
+        Email:</strong><span email2image width="250" height="22" email="liuweihust@foxmail.com"></span>
+    </p>
+    <p>Hubei Bioinfomatics & Molecular Imaging Key Laboratory</p>
+    <p>Department of Systems Biology</p>
+    <p>College of Life Science and Technology</p></a>
+    <a href="http://www.hust.edu.cn/">Huazhong University of Science and Technology, Wuhan 430074 P.R. China</a>
+    </p>
+</div>
+    </div>
+</div>

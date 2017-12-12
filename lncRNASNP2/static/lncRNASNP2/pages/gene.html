@@ -1,0 +1,19 @@
+<div ng-show="error">
+    <div class="alert alert-info" role="alert">
+     Sorry,your query item is not exist in our database
+    </div>
+</div>
+
+<div class="panel panel-default" ng-hide="error">
+    <div class="panel-heading">Basic information of gene {$ gene $}</div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
+            <dt>Gene ID</dt>
+            <dd>
+                {$ gene $}
+            </dd>
+            <dt>transcript</dt>
+            <dd ng-repeat="lncrna in trans_list"><a href="#!/lncrna_info?lncrna={$ lncrna.transcript $}">{$ lncrna.transcript $}</a></dd>
+        </dl>
+    </div>
+</div>

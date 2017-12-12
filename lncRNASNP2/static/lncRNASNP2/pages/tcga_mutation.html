@@ -1,0 +1,117 @@
+<div class="col-lg-2"
+     data-angular-treeview="true"
+     data-tree-id="mytree"
+     data-tree-model="roleList1"
+     data-node-id="roleId"
+     data-node-label="roleName"
+     data-node-children="children"
+></div>
+<div class="col-lg-10">
+    <div ng-show="initial">
+        <div class="flyover" ng-hide="tcga_lnc_list.length">
+            <div class="mask"></div>
+            <div class="spinner"></div>
+        </div>
+    </div>
+    <div ng-show="error">
+        <div class="alert alert-info" role="alert">
+            Sorry,your query item is not exist
+        </div>
+    </div>
+    <div class="panel panel-info" ng-show="tcga_lnc_list.length">
+        <div class="panel-heading">
+            <strong>There are {$ records_number $}
+                <span ng-show="click_tree">{$ cancer_type $}</span>
+                {$ mytree.currentNode.roleName $} Mutations in lncRNA</strong>
+        </div>
+        <div class="panel-body">
+            <div ng-show="tcga_lnc_list.length">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <p ng-if="!tanric">There is no lncRNA Gene expression data in <span ng-show="click_tree">{$ cancer_type $}</span> {$ mytree.currentNode.roleName $} </p>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="input-group">
+                            <input name="user" ng-model="user" type="text" id="search" class="form-control" style="border-color: #81C2D6" placeholder="NONHSAT154826.1">
+                            <span class="input-group-btn">
+						<button class="btn btn-default" type="button" style="background-color: #ffbbbc" ng-click="search_query()">
+							Search
+						</button>
+					</span>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <table ts-wrapper class="table table-bordered table-condensed table-hover table-striped">
+                    <thead>
+                    <tr>
+                        <th ts-criteria="chromosome">Chromosome</th>
+                        <th ts-criteria="mut_start">Start</th>
+                        <th ts-criteria="mut_end">End</th>
+                        <th >Ref/Alt Base</th>
+                        <th ts-criteria="fre" style="text-align: center">Alt fre<span class="glyphicon glyphicon-question-sign" data-toggle="popover" data-container="body" data-trigger="hover" data-content="The number of mutated samples and mutation frequency" style="color: #5bc0de"></span></th>
+                        <th ts-criteria="lncrna">lncRNA</th>
+                        <th ts-criteria="target">miRNA:lncRNA
+                            <span class="glyphicon glyphicon-question-sign" data-placement="left"  data-container="body" data-toggle="popover" style="color: darkseagreen" data-trigger="hover" data-content="whether mutation impact miRNA:lncRNA interaction or not?"></span>
+                        </th>
+                        <th ng-if="tanric" ts-criteria="express">
+                            Expression
+                        </th>
+                        <th ts-criteria="effect">Effect
+                            <span class="glyphicon glyphicon-question-sign" data-placement="left"  data-container="body" data-toggle="popover" style="color: darkseagreen" data-trigger="hover" data-content="The effect of the mutation is calculated by FATHMM-MKL"></span>
+                        </th>
+                        <th>Detail</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in tcga_lnc_list" ts-repeat>
+                        <th>{$ item.chromosome $}</th>
+                        <th>{$ item.mut_start $}</th>
+                        <th>{$ item.mut_end $}</th>
+                        <th style="text-align: center">{$ item.ref_base $}/{$ item.alt_base $}</th>
+                        <th style="text-align: center">{$ item.fre $}</th>
+                        <th><a href="#!/lncrna_info?lncrna={$ item.lncrna $}">{$ item.lncrna $}</a></th>
+                        <th style="text-align: center">
+                            <span class="glyphicon glyphicon-ok" style="color: mediumseagreen" ng-show="item.target"></span>
+                            <span class="glyphicon glyphicon-remove" style="color: red" ng-if="!item.target"></span>
+                        </th>
+                        <th ng-if="tanric" style="text-align: center">
+                            <span class="glyphicon glyphicon-ok" style="color: mediumseagreen" ng-if="item.express"></span>
+                            <span class="glyphicon glyphicon-remove" style="color: red" ng-if="!item.express"></span>
+                        </th>
+                        <th style="text-align: center">
+                            <span class="glyphicon glyphicon-ok" style="color: mediumseagreen" ng-if="item.effect"></span>
+                            <span class="glyphicon glyphicon-remove" style="color: red" ng-if="!item.effect"></span>
+                        </th>
+                        <th style="text-align: center">
+                            <a ng-if="click_tree" href="#!/tcga_mutation_info?cancer={$ cancer_type $}&position={$ item.chromosome $};{$ item.mut_start $};{$ item.mut_end $};{$ item.ref_base $};{$ item.alt_base $}" target="_self">detail</a>
+                            <a ng-if="!click_tree" href="#!/tcga_mutation_info?cancer={$ mytree.currentNode.roleName $}&position={$ item.chromosome $};{$ item.mut_start $};{$ item.mut_end $}" target="_self">detail</a>
+                        </th>
+                    </tr>
+                    </tbody>
+                </table>
+                <div paging
+                     page="currentPage"
+                     page-size=30
+                     total="records_number"
+                     scroll-top="true"
+                     hide-if-empty="true"
+                     show-prev-next="true"
+                     show-first-last="true"
+                     text-title-page="Page {page} Hover Over"
+                     text-title-first="First hover"
+                     text-title-last="Last hover"
+                     text-title-next="Next hover"
+                     text-title-prev="Prev hover"
+                     show-prev-next="true"
+                     show-first-last="true"
+                     ul-class="pagination"
+                     active-class="active"
+                     disabled-class="disabled"
+                     paging-action="update_page('page_cancer',page,page-size,total)"
+                >
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

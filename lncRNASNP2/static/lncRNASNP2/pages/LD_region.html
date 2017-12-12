@@ -1,0 +1,177 @@
+<div ng-show="error">
+    Sorry,your query item is not exist in our database
+</div>
+<div ng-show="ld">
+    <div class="panel-heading" ng-show="lncrna_snp_list.length"><strong>Information:</strong> there are
+        {$ records_number $} SNPs located in this region:{$ chr $}:{$ start $}-{$ end $}
+    </div>
+    <div class="flyover" ng-hide="lncrna_snp_list.length">
+        <div class="mask"></div>
+        <div class="spinner"></div>
+    </div>
+    <div class="col-lg-7" ng-show="lncrna_snp_list.length"
+         paging
+         page="currentPage"
+         page-size=30
+         total="records_number"
+         scroll-top="true"
+         hide-if-empty="true"
+         show-prev-next="true"
+         show-first-last="true"
+         text-title-page="Page {page} Hover Over"
+         text-title-first="First hover"
+         text-title-last="Last hover"
+         text-title-next="Next hover"
+         text-title-prev="Prev hover"
+         show-prev-next="true"
+         show-first-last="true"
+         ul-class="pagination"
+         active-class="active"
+         disabled-class="disabled"
+         paging-action="update_page('test',page,page-size,total)"
+
+    >
+    </div>
+</div>
+<div ng-show="lncrna_snp_list.length">
+    <table class="table table-bordered table-condensed table-hover table-striped tablesorter tablesorter-bootstrap">
+        <thead>
+        <tr>
+            <th>SNP ID</th>
+            <th>Chromosome</th>
+            <th>Position</th>
+            <th>Ref</th>
+            <th>Ref_fre
+                <span class="glyphicon glyphicon-question-sign" data-placement="top"  data-container="body" data-toggle="popover" style="color: dodgerblue" data-trigger="hover" data-content="frequence of reference allele"></span>
+            </th>
+            <th>Alt</th>
+            <th>Alt_fre
+                <span class="glyphicon glyphicon-question-sign" data-placement="top"  data-container="body" data-toggle="popover" style="color: dodgerblue" data-trigger="hover" data-content="frequence of alternative allele"></span>
+            </th>
+            <th>lncRNA
+                <span class="glyphicon glyphicon-question-sign" data-placement="top"  data-container="body" data-toggle="popover" style="color: dodgerblue" data-trigger="hover" data-content="lncRNAs with SNP"></span>
+            </th>
+            <th>LD SNP
+                <span class="glyphicon glyphicon-question-sign" data-placement="top"  data-container="body" data-toggle="popover" style="color: dodgerblue" data-trigger="hover" data-content="whether SNP in GWAS LD region or not?"></span>
+            </th>
+            <th>miRNA:lncRNA
+                <span class="glyphicon glyphicon-question-sign" data-placement="top"  data-container="body" data-toggle="popover" style="color: dodgerblue" data-trigger="hover" data-content="whether SNP impact miRNA:lncRNA interaction or not? (green tick flag refers experimentally validated results.)"></span>
+            </th>
+            <th>Effect
+                <span class="glyphicon glyphicon-question-sign" data-placement="top"  data-container="body" data-toggle="popover" style="color: dodgerblue" data-trigger="hover" data-content="The effect of SNP in lncRNA structure is caculated by RNAsnp.RNAsnp  is  an  efficient  method  to  predict
+the effect of SNPs on local RNA secondary structure
+based on the RNA folding algorithms implemented
+in  the  Vienna  RNA  package.  The  SNP  effects  are
+quantified  in  terms  of  empirical
+P
+-values"></span>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+
+
+        <tr ng-repeat="snp in lncrna_snp_list">
+            <td ng-init="snp" class="center">
+                <a href="#!/snp_info?snp={$ snp.snp $}" target="_self" ng-click="snp_detail()">
+                    {$ snp.snp $}
+                </a>
+            </td>
+            <td class="center">{$ snp.chromosome $}</td>
+            <td>{$ snp.pos $}</td>
+            <td>{$ snp.ref_base $}</td>
+            <td>{$ snp.r_fre $}</td>
+            <td>{$ snp.alt_base $}</td>
+            <td>{$ snp.a_fre $}</td>
+            <td ng-init="lncrna">
+                <a href="#!/lncrna_info?lncrna={$ snp.lnc $}">
+                    {$ snp.lnc $}
+                </a>
+            </td>
+            <td>
+                <span class="glyphicon glyphicon-ok" style="color: deepskyblue" ng-if="snp.tagSNP"></span>
+                <span class="glyphicon glyphicon-remove" style="color: red" ng-if="!snp.tagSNP"></span>
+            </td>
+            <td>
+                <span class="glyphicon glyphicon-ok" style="color: deepskyblue" ng-if="snp.target"></span>
+                <span class="glyphicon glyphicon-remove" style="color: red" ng-if="!snp.target"></span>
+            </td>
+            <td>
+                <span class="glyphicon glyphicon-ok" style="color: deepskyblue" ng-if="snp.effect"></span>
+                <span class="glyphicon glyphicon-remove" style="color: red" ng-if="!snp.effect"></span>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+<div ng-show="lncrna_gene_list.length">
+    <table class="table table-bordered table-condensed table-hover table-striped tablesorter tablesorter-bootstrap">
+        <thead>
+        <tr >
+            <th>lncRNA ID</th>
+            <th>lncRNA Gene</th>
+            <th>SNP
+                <span class="glyphicon glyphicon-question-sign" data-placement="top"  data-container="body" data-toggle="popover" style="color: dodgerblue" data-trigger="hover" data-content="Number of SNPs in this lncRNA"></span>
+            </th>
+            <th>miRNA
+                <span class="glyphicon glyphicon-question-sign" data-placement="top"  data-container="body" data-toggle="popover" style="color: dodgerblue" data-trigger="hover" data-content="frequence of reference allele"></span></th>
+            </th>
+            <th>Gain
+                <span class="glyphicon glyphicon-question-sign" data-placement="top"  data-container="body" data-toggle="popover" style="color: dodgerblue" data-trigger="hover" data-content="Number of gains of miRNA targets"></span></th>
+            </th>
+            <th>Loss
+                <span class="glyphicon glyphicon-question-sign" data-placement="top"  data-container="body" data-toggle="popover" style="color: dodgerblue" data-trigger="hover" data-content="Number of losses of miRNA targets"></span></th>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+
+
+        <tr ng-repeat="lncrna in lncrna_gene_list">
+            <td ng-init="lnc">
+                <a href="#!/lncrna_info?lncrna={$ lncrna.lncrna $}" target="_self" ng-click="lncrna_detail()">
+                    {$ lncrna.lncrna $}
+                </a>
+            </td>
+            <td>
+                <a href="">{$ lncrna.gene $}</a>
+            </td>
+            <td>{$ lncrna.snp_count $}</td>
+            <td>
+                <span class="text-danger">{$ lncrna.cons $}</span>
+                <span class="text-success">   ,  {$ lncrna.non_cons $}</span>
+                <span class="text-primary">   ,  {$ lncrna.exp $}</span>
+                <span class="text-warning">   ,  {$ lncrna.large $}</span>
+                <span class="text-capitalize">   ,  {$ lncrna.small $}</span>
+            </td>
+            <td>{$ lncrna.gain $}</td>
+            <td>{$ lncrna.loss $}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div ng-show="mirna_file.length">
+    <table class="table table-bordered table-condensed table-hover table-striped tablesorter tablesorter-bootstrap">
+        <thead>
+        <tr>
+            <td>MiRNA ID</td>
+            <td>Accession</td>
+            <td>Mature Sequence</td>
+            <td>expression</td>
+            <td>Precursor</td>
+            <td>Pre-miR sequence</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in mirna_file">
+            <td>{$ item.mirna $}</td>
+            <td>{$ item.accession $}</td>
+            <td>{$ item.mature_sequence $}</td>
+            <td>{$ item.expression $}</td>
+            <td>{$ item.precursor $}</td>
+            <td>{$ item.pre_mature_sequence $}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

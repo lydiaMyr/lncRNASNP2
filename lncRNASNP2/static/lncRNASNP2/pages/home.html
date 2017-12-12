@@ -1,0 +1,123 @@
+<div style="padding: 20px 100px 10px;width: 100%">
+    <div class="input-group">
+        <input name="user"  type="text" class="form-control" style="border-color: #81C2D6" data-provide="typeahead" placeholder="rs2851, NONHSAT154826.1, ENST00000515242, hsa-miR-522-3p, BLCA, COSN7465369, chr9:22017550-22054356" id="search">
+        <span class="input-group-btn">
+						<button class="btn btn-default" id="search_button" type="button" style="background-color: #ffbbbc" ng-click="search_query()">
+							Search
+						</button>
+					</span>
+    </div><!-- /input-group -->
+</div><!-- /.col-lg-6 -->
+<div class="alert alert-danger alert-dismissible" ng-show="alert_show" id="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <strong>Sorry, your query item is not exist</strong>
+</div>
+<div class="row" style="margin-top: 20px">
+    <div class="col-xs-6 col-sm-6">
+        <div class="panel" style="height: 280px;border-color: #5bc0de">
+            <div class="panel-heading" style="background-color: #A4D3EE">
+                <span>
+                    Welcome to the lncRNASNP2 database
+                </span>
+            </div>
+            <div class="panel-body">
+                <span>
+                Long non-coding RNAs (lncRNAs) are emerging as key factors in the regulation of various cellular processes and diseases.
+                    <span class="badge alert-info">LncRNASNP</span> is a database providing comprehensive resources of single nucleotide polymorphisms (SNPs) in human/mouse lncRNAs. It contains SNPs in lncRNAs, SNP effects on lncRNA structure, mutation in lncRNAs and lncRNA:miRNA binding.
+                </span>
+                <br>
+                <br>
+                In <span class="badge alert-success">lncRNASNP2</span>, numbers of human lncRNAs and SNPs on them were updated to 141,353 and 10,205,295. Furthermore, we identified 859,534
+                <span class="badge alert-danger">
+                        Cosmic Noncoding Variations
+                    </span>
+                and 315,234
+                <span class="badge alert-danger">
+                        TCGA cancer mutations
+                    </span>
+                based on GRCh38 in these lncRNAs.
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-6 col-sm-6">
+        <div class="panel" style="height:280px;border-color: #5bc0de">
+            <div class="panel-heading" style="background-color: #A4D3EE">
+                <span>
+                    In lncRNASNP2, you can browse or search
+                </span>
+            </div>
+            <div class="panel-body">
+                <ul>
+                    <li><p>SNPs in lncRNAs and their impacts on lncRNA;</p></li>
+                    <li><p>miRNA binding in lncRNAs & SNP effects on the bindings;</p></li>
+                    <li><p>SNPs in GWAS linkage disequilibrium (LD) regions;</p></li>
+                    <li><p>Mutations on lncRNAs in TCGA cancers
+                        <span>
+                        <img style="height: 10px;width: 30px" src="/static/lncRNASNP2/graph/new.gif">
+                    </span>
+                    </p></li>
+                    <li><p>lncRNA expression in TCGA cancer data
+                        <span>
+                        <img style="height: 10px;width: 30px" src="/static/lncRNASNP2/graph/new.gif">
+                    </span>
+                    </p></li>
+                    <li><p>Cosmic Noncoding Variationd(CosmicNCV) in lncRNAs
+                        <span>
+                        <img style="height: 10px;width: 30px" src="/static/lncRNASNP2/graph/new.gif">
+                    </span>
+                    </p></li>
+                    <li><p>Mutation effects on lncRNAs
+                        <span>
+                        <img style="height: 10px;width: 30px" src="/static/lncRNASNP2/graph/new.gif">
+                    </span>
+                    </p></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-6 col-md-3">
+        <div class="thumbnail">
+            <img src="/static/lncRNASNP2/graph/lncRNA_background.jpg" style="height: 200px;width:252px">
+            <div class="caption" style="text-align: center">
+                <span style="font-size: x-large;" class="center" ><a href="#!/lncrna">lncRNA</a></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-3">
+        <div class="thumbnail">
+            <img src="/static/lncRNASNP2/graph/SNP_background.jpg" style="height: 200px;width:252px">
+            <div class="caption" style="text-align: center">
+                <span style="font-size: x-large"><a href="#!/snp">SNP</a></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-3">
+        <div class="thumbnail">
+            <img src="/static/lncRNASNP2/graph/miRNA_background.jpg" style="height: 200px;width:250px">
+            <div class="caption" style="text-align: center;">
+                <span style="font-size: x-large"><a href="#!/mirna">miRNA</a></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-3">
+        <div class="thumbnail">
+            <img src="/static/lncRNASNP2/graph/mutation_ground.jpg" style="height: 195px;width: 252px">
+            <div class="caption" style="margin-bottom: 5px;margin-top: 5px">
+                <span style="margin-top: 30px;font-size: x-large"><span style="color: dodgerblue">Mutation</span>(<span style="font-size: large"><a href="#!/tcga_home"><strong>TCGA</strong></a></span>/<a href="#!/cosmic_ncv"><span style="font-size: large"><strong>Cosmic</strong></span></a>)</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+

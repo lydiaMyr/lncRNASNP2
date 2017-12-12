@@ -1,0 +1,128 @@
+<p>
+    <strong>CosmicNCV</strong>:Cosmic Noncoding Variants,The mutation impact filters are derived from the new FATHMM-MKL algorithm. This algorithm predicts the functional, molecular and phenotypic consequences of protein missense variants using hidden Markov models.
+    We identified 859534  CosmicNCV in 193085 human lncRNA transcripts of 118847 lncRNA genes.There are {$ records_number $} of mutations on <span class="badge alert-info">{$ selected_chr $}</span>
+<div class="row">
+    <lable class="control-label col-sm-2" for="chromosome">
+        <strong>Select a chromosome</strong></lable>
+    <div class="col-sm-2">
+        <select class="form-control" id="chr_num" ng-click="fetch_cosmic_ncv_list()">
+            <option>chr1</option>
+            <option>chr2</option>
+            <option>chr3</option>
+            <option>chr4</option>
+            <option>chr5</option>
+            <option>chr6</option>
+            <option>chr7</option>
+            <option>chr8</option>
+            <option>chr9</option>
+            <option>chr10</option>
+            <option>chr11</option>
+            <option>chr12</option>
+            <option>chr13</option>
+            <option>chr14</option>
+            <option>chr15</option>
+            <option>chr16</option>
+            <option>chr17</option>
+            <option>chr18</option>
+            <option>chr19</option>
+            <option>chrX</option>
+            <option>chrY</option>
+        </select>
+    </div>
+</div>
+</p>
+<div paging
+     page="currentPage"
+     page-size=30
+     total="records_number"
+     scroll-top="true"
+     hide-if-empty="true"
+     show-prev-next="true"
+     show-first-last="true"
+     text-title-page="Page {page} Hover Over"
+     text-title-first="First hover"
+     text-title-last="Last hover"
+     text-title-next="Next hover"
+     text-title-prev="Prev hover"
+     show-prev-next="true"
+     show-first-last="true"
+     ul-class="pagination"
+     active-class="active"
+     disabled-class="disabled"
+     paging-action="update_page('test',page,page-size,total)"
+>
+</div>
+<div>
+    <div class="flyover" ng-hide="cosmic_lnc_list.length">
+        <div class="mask"></div>
+        <div class="spinner"></div>
+    </div>
+    <table ts-wrapper style="text-align: center" class="table table-condensed table-bordered table-striped table-hover" ng-show="cosmic_lnc_list.length">
+        <thead>
+        <tr>
+            <th ts-criteria="cosmic_cnv_id" style="text-align: center">ID_NCV</th>
+            <th ts-criteria="chr" style="text-align: center">Chromosome</th>
+            <th ts-criteria="mut_start|parseInt" style="text-align: center">Start</th>
+            <th ts-criteria="mut_end|parseInt" style="text-align: center">End</th>
+            <th ts-criteria="ref_base" style="text-align: center">Ref</th>
+            <th ts-criteria="alt_base" style="text-align: center">Alt</th>
+            <th ts-criteria="target">miRNA:lncRNA<span class="glyphicon glyphicon-question-sign" data-placement="left"  data-container="body" data-toggle="popover" style="color: darkseagreen" data-trigger="hover" data-content="whether mutation impact miRNA:lncRNA interaction or not?"></span>
+            </th>
+            <th ts-criteria="lcnrna" style="text-align: center">lncRNA</th>
+            <th style="text-align: center">Effect
+                <span class="glyphicon glyphicon-question-sign" data-placement="left"  data-container="body" data-toggle="popover" style="color: deepskyblue" data-trigger="hover" data-content="The effect of the mutation is calculated by FATHMM-MKL"></span>
+            </th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr ng-repeat="cos in cosmic_lnc_list" ts-repeat>
+            <td ng-init="cosmic">
+                <a href="#!/cosmic_info?id_cnv={$ cos.cosmic_cnv_id $}" target="_self" ng-click="snp_detail()">
+                    {$ cos.cosmic_cnv_id $}
+                </a>
+            </td>
+            <td class="center">{$ cos.chr $}</td>
+            <td class="center">{$ cos.mut_start $}</td>
+            <td class="center">{$ cos.mut_end $}</td>
+            <td class="center">{$ cos.ref_base $}</td>
+            <td class="center">{$ cos.alt_base $}</td>
+            <th style="text-align: center">
+                <span class="glyphicon glyphicon-ok" style="color: mediumseagreen" ng-show="cos.target"></span>
+                <span class="glyphicon glyphicon-remove" style="color: red" ng-if="!cos.target"></span>
+            </th>
+            <td>
+                <a href="#!/lncrna_info?lncrna={$ cos.lncrna $}">{$ cos.lncrna $}</a>
+            </td>
+            <td class="center">
+                <span class="glyphicon glyphicon-ok" style="color: deepskyblue" ng-show="cos.noncoding_score"></span>
+                <span class="glyphicon glyphicon-remove" style="color: red" ng-show="!cos.noncoding_score"></span>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+<div paging
+     page="currentPage"
+     page-size=30
+     total="records_number"
+     scroll-top="true"
+     hide-if-empty="true"
+     show-prev-next="true"
+     show-first-last="true"
+     text-title-page="Page {page} Hover Over"
+     text-title-first="First hover"
+     text-title-last="Last hover"
+     text-title-next="Next hover"
+     text-title-prev="Prev hover"
+     show-prev-next="true"
+     show-first-last="true"
+     ul-class="pagination"
+     active-class="active"
+     disabled-class="disabled"
+     paging-action="update_page('test',page,page-size,total)"
+
+>
+</div>
